@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skyline — Designing a booking experience for a fictional airline · Elisabetta Squarci</title>
+<style id="site-css">
+/* Elisabetta Squarci — portfolio styles v3
+   Warm editorial + bold geometric. Closer to Yan's energy.
+   Palette: cream paper + terracotta / mustard / forest / deep navy accents.
+   Display: Space Grotesk (bold geometric). Body: Inter Tight. Mono: JetBrains Mono.
+   Italic serif accent: Fraunces (used sparingly for emphasis only). */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@1,9..144,300..500&display=swap');
+
+:root {
+  /* --- Paper / ink --- */
+  --paper:      oklch(0.975 0.010 85);   /* warm cream */
+  --paper-2:    oklch(0.945 0.014 85);   /* toasted cream */
+  --paper-3:    oklch(0.915 0.018 80);   /* heavier cream */
+  --ink:        oklch(0.18 0.015 60);    /* near-black warm */
+  --ink-soft:   oklch(0.38 0.012 60);
+  --ink-mute:   oklch(0.58 0.010 60);
+  --rule:       oklch(0.86 0.010 80);
+  --rule-strong:oklch(0.74 0.012 80);
+
+  /* --- Accents (warm set) --- */
+  --terracotta: oklch(0.62 0.14 40);
+  --terracotta-soft: oklch(0.90 0.06 40);
+  --mustard:    oklch(0.78 0.14 85);
+  --mustard-soft: oklch(0.93 0.06 85);
+  --forest:     oklch(0.40 0.08 155);
+  --forest-soft: oklch(0.88 0.05 155);
+  --navy:       oklch(0.25 0.06 255);
+  --navy-soft:  oklch(0.88 0.04 255);
+  --plum:       oklch(0.38 0.09 340);
+  --plum-soft:  oklch(0.90 0.04 340);
+
+  /* Feature tag semantics (kept from v2 case study) */
+  --mvp:        var(--forest);
+  --mvp-soft:   var(--forest-soft);
+  --defer:      oklch(0.72 0.008 80);
+  --defer-soft: oklch(0.92 0.006 80);
+
+  /* Layout */
+  --maxw: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+
+  /* Type */
+  --f-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --f-serif:   'Fraunces', 'Times New Roman', serif;
+  --f-body:    'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --f-mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+/* -------- Reset / base -------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+::selection { background: var(--terracotta); color: var(--paper); }
+
+/* -------- Layout -------- */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+.rule-strong { border: 0; border-top: 1px solid var(--rule-strong); margin: 0; }
+
+/* -------- Nav -------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in oklab, var(--paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-block: 20px;
+}
+.nav-brand {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.nav-brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); }
+.nav-brand em {
+  font-family: var(--f-serif);
+  font-style: italic; font-weight: 400;
+  color: var(--ink-soft); font-size: 16px;
+}
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: 14px; color: var(--ink-soft);
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); }
+.nav-links a.active::after {
+  content: ""; position: absolute;
+  left: 0; right: 0; bottom: -8px;
+  height: 2px; background: var(--terracotta);
+}
+
+/* -------- Type system -------- */
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 500;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1;
+}
+
+.display { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.035em; line-height: 0.95; }
+.display em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  letter-spacing: -0.01em;
+  color: var(--ink-soft);
+}
+
+.h-hero    { font-size: clamp(64px, 11vw, 168px); }
+.h-section { font-size: clamp(48px, 8vw,  112px); }
+.h-sub     { font-size: clamp(32px, 4.5vw, 56px); letter-spacing: -0.025em; }
+
+/* Splash of colour on a word */
+.accent-ter  { color: var(--terracotta); }
+.accent-mus  { color: var(--mustard); }
+.accent-for  { color: var(--forest); }
+.accent-nav  { color: var(--navy); }
+
+/* -------- Ticker / marquee -------- */
+.ticker {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+  padding: 12px 0;
+}
+.ticker-track {
+  display: flex; gap: 48px;
+  white-space: nowrap;
+  animation: marquee 42s linear infinite;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: max-content;
+}
+.ticker-track span { display: inline-flex; align-items: center; gap: 48px; }
+.ticker-track .sep { color: var(--terracotta); font-size: 10px; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* -------- Status / availability pill -------- */
+.status {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.status-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--forest);
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--forest) 50%, transparent);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--forest) 50%, transparent); }
+  50%      { box-shadow: 0 0 0 8px color-mix(in oklab, var(--forest) 0%, transparent); }
+}
+
+/* -------- Project card (big, Yan-style with colour) -------- */
+.proj-card {
+  display: block;
+  border: 1px solid var(--ink);
+  border-radius: 32px;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s;
+  position: relative;
+  background: var(--paper-2);
+}
+.proj-card:hover { transform: translateY(-8px); box-shadow: 0 50px 100px -40px oklch(0.25 0.04 60 / 0.32); }
+
+.proj-card .pc-visual {
+  position: relative;
+  min-height: 520px;
+  display: grid; place-items: center;
+  overflow: hidden;
+  padding: 56px;
+}
+.proj-card .pc-body {
+  padding: clamp(28px, 3.5vw, 56px);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr auto;
+  gap: 40px;
+  align-items: end;
+  border-top: 1px solid var(--ink);
+  background: var(--paper);
+}
+@media (max-width: 900px) {
+  .proj-card .pc-body { grid-template-columns: 1fr; gap: 18px; }
+}
+.pc-title {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(30px, 3.6vw, 48px);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  margin: 0;
+}
+.pc-title em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--ink-soft);
+  letter-spacing: -0.01em;
+}
+.pc-meta {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+.pc-meta .k { color: var(--ink); display: inline-block; min-width: 76px; font-weight: 500; }
+
+.pc-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 999px;
+  margin-bottom: 16px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: var(--paper);
+}
+.pc-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: 14px; letter-spacing: -0.01em;
+  color: var(--ink); padding: 16px 24px;
+  border: 1.5px solid var(--ink); border-radius: 999px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.proj-card:hover .pc-cta { background: var(--ink); color: var(--paper); }
+.proj-card:hover .pc-cta .arr { transform: translateX(4px); }
+.pc-cta .arr { transition: transform 0.2s; }
+
+/* Visual slots — one per colour */
+.visual-ter  { background: var(--terracotta); color: oklch(0.96 0.02 40); }
+.visual-mus  { background: var(--mustard); }
+.visual-for  { background: var(--forest); color: oklch(0.96 0.02 155); }
+.visual-nav  { background: var(--navy); color: oklch(0.96 0.02 255); }
+.visual-plum { background: var(--plum); color: oklch(0.96 0.02 340); }
+.visual-cream { background: var(--paper-3); }
+
+/* Tablet / device stack helpers (reused) */
+.stack-tablets {
+  position: relative; display: flex; gap: 22px; align-items: center;
+  transform: rotate(-4deg);
+}
+.stack-tablets .tablet { width: 220px; }
+.stack-tablets .tablet.side { transform: translateY(34px) scale(0.88); opacity: 0.75; }
+.stack-tablets .tablet.side-top { transform: translateY(-34px) scale(0.88); opacity: 0.75; }
+.stack-tablets .tablet.lead {
+  box-shadow: 0 60px 100px -20px oklch(0 0 0 / 0.5), 0 8px 24px -10px oklch(0 0 0 / 0.3);
+  z-index: 2;
+}
+
+/* Tablet chrome (was in old stylesheet; re-declare) */
+.tablet {
+  border-radius: 24px;
+  background: oklch(0.08 0 0);
+  padding: 10px;
+  box-shadow: 0 20px 40px -20px oklch(0 0 0 / 0.35);
+}
+.tablet-screen {
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--paper);
+  aspect-ratio: 3 / 4;
+  position: relative;
+}
+.tablet-screen.portrait { aspect-ratio: 3 / 4; }
+.tablet-screen.landscape { aspect-ratio: 4 / 3; }
+.tablet-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+/* Big number / oversized mark in a visual */
+.big-mark {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(160px, 22vw, 320px);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  text-align: center;
+}
+.big-mark em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  opacity: 0.85;
+}
+
+/* Sketch placeholder */
+.sketch {
+  background: var(--paper);
+  border: 1px dashed var(--rule-strong);
+  border-radius: 16px;
+  padding: 40px;
+  display: grid; place-items: center;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+.sketch::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(45deg, transparent 0 14px, color-mix(in oklab, var(--rule-strong) 50%, transparent) 14px 15px);
+  opacity: 0.5;
+}
+.sketch-label {
+  position: relative; z-index: 1;
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-mute); padding: 8px 16px; border: 1px solid var(--rule-strong); border-radius: 999px;
+  background: var(--paper);
+}
+
+/* -------- Stats row -------- */
+.stat-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  padding: 56px 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+@media (max-width: 900px) { .stat-row { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
+.stat { display: flex; flex-direction: column; gap: 10px; }
+.stat .big {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(48px, 6vw, 84px);
+  line-height: 0.92; letter-spacing: -0.04em;
+}
+.stat .big em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--ink-soft);
+  font-size: 0.62em;
+  letter-spacing: -0.01em;
+}
+.stat .cap {
+  font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.stat .desc { font-size: 14px; color: var(--ink-soft); line-height: 1.5; max-width: 30ch; }
+
+/* -------- Services grid -------- */
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 900px) { .svc-grid { grid-template-columns: 1fr; } }
+.svc {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 24px;
+  padding: 36px;
+  display: flex; flex-direction: column; gap: 18px;
+  transition: transform 0.35s, background 0.3s;
+  min-height: 340px;
+}
+.svc:hover { transform: translateY(-4px); }
+.svc.ter:hover { background: var(--terracotta-soft); }
+.svc.mus:hover { background: var(--mustard-soft); }
+.svc.for:hover { background: var(--forest-soft); }
+.svc .svc-num {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em;
+  color: var(--ink-mute); text-transform: uppercase;
+}
+.svc h4 {
+  font-family: var(--f-display); font-weight: 500; font-size: 28px;
+  letter-spacing: -0.025em; line-height: 1.05; margin: 0;
+}
+.svc h4 em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--ink-soft);
+  letter-spacing: -0.01em;
+}
+.svc p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+.svc ul { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.svc ul li {
+  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-soft);
+  padding: 5px 10px; border: 1px solid var(--rule-strong); border-radius: 999px;
+  background: var(--paper);
+}
+
+/* -------- Quote card -------- */
+.quote-card {
+  background: var(--mustard);
+  border: 1px solid var(--ink);
+  border-radius: 28px;
+  padding: clamp(40px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 32px;
+  position: relative;
+}
+@media (max-width: 720px) { .quote-card { grid-template-columns: 1fr; gap: 12px; } }
+.quote-card .qmark {
+  font-family: var(--f-serif);
+  font-style: italic; font-weight: 300;
+  font-size: 128px; line-height: 0.6;
+  color: var(--ink);
+}
+.quote-card blockquote {
+  margin: 0;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.quote-card blockquote em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.quote-card cite {
+  display: block; margin-top: 24px;
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
+  color: var(--ink-soft); text-transform: uppercase; font-style: normal;
+}
+
+/* -------- Logo / companies strip -------- */
+.logos {
+  display: flex; flex-wrap: wrap; gap: 28px 52px; align-items: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.logos .logo-item {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: 22px; letter-spacing: -0.02em;
+  color: var(--ink);
+  position: relative;
+  transition: color 0.2s;
+}
+.logos .logo-item.italic {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* -------- Section header -------- */
+.sect-head {
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  gap: 32px;
+  padding-top: 32px;
+  padding-bottom: 36px;
+  border-top: 1px solid var(--ink);
+  align-items: baseline;
+  margin-bottom: 48px;
+}
+@media (max-width: 720px) { .sect-head { grid-template-columns: 1fr; gap: 8px; } }
+.sect-head .title {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(40px, 6vw, 80px);
+  letter-spacing: -0.035em; line-height: 0.98;
+  margin: 0;
+}
+.sect-head .title em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--ink-soft);
+  letter-spacing: -0.01em;
+}
+.sect-head .count {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* -------- Process steps -------- */
+.process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 40px 0; }
+@media (max-width: 900px) { .process { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+.process-step {
+  display: flex; flex-direction: column; gap: 14px;
+  padding-top: 20px; border-top: 2px solid var(--ink);
+}
+.process-step .num {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em;
+  color: var(--terracotta); text-transform: uppercase; font-weight: 500;
+}
+.process-step h5 {
+  font-family: var(--f-display); font-weight: 500; font-size: 24px;
+  letter-spacing: -0.02em; margin: 0;
+}
+.process-step p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+/* -------- CTA block -------- */
+.cta-block {
+  margin-top: 120px;
+  padding: clamp(72px, 12vh, 144px) 0;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 32px 32px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta-block::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 90% 10%, color-mix(in oklab, var(--terracotta) 40%, transparent), transparent 45%),
+    radial-gradient(circle at 10% 90%, color-mix(in oklab, var(--mustard) 20%, transparent), transparent 45%);
+  opacity: 0.8;
+}
+.cta-block .container { position: relative; z-index: 1; }
+.cta-block h2 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(64px, 11vw, 176px);
+  line-height: 0.92; letter-spacing: -0.04em;
+  margin: 0 0 56px; max-width: 13ch;
+}
+.cta-block h2 em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--terracotta);
+  letter-spacing: -0.01em;
+}
+.cta-block .cta-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.cta-block .cta-links a {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 18px 30px;
+  border: 1.5px solid oklch(0.40 0.012 60);
+  border-radius: 999px;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: 14px; letter-spacing: -0.01em;
+  color: var(--paper);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.cta-block .cta-links a.primary {
+  background: var(--terracotta);
+  color: var(--paper);
+  border-color: var(--terracotta);
+}
+.cta-block .cta-links a:hover { background: oklch(0.30 0.012 60); transform: translateY(-2px); }
+.cta-block .cta-links a.primary:hover { background: oklch(0.55 0.14 40); border-color: oklch(0.55 0.14 40); }
+.cta-block .cta-foot {
+  display: flex; justify-content: space-between; align-items: end;
+  margin-top: 88px;
+  padding-top: 32px;
+  border-top: 1px solid oklch(0.35 0.012 60);
+  font-family: var(--f-mono); font-size: 12px;
+  color: oklch(0.70 0.012 60);
+  flex-wrap: wrap; gap: 16px;
+}
+.cta-block .cta-foot a { color: var(--paper); border-bottom: 1px solid oklch(0.40 0.012 60); }
+.cta-block .cta-foot a:hover { border-bottom-color: var(--terracotta); }
+
+/* -------- Pills (feature tags — case study) -------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-mono); font-size: 10.5px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper);
+  color: var(--ink-soft);
+}
+.pill.mvp  { background: var(--mvp-soft); color: var(--forest); border-color: color-mix(in oklab, var(--forest) 30%, transparent); }
+.pill.defer { background: var(--defer-soft); color: var(--ink-mute); }
+.pill.mvp-partial {
+  background: linear-gradient(100deg, var(--mvp-soft) 0%, var(--mvp-soft) 40%, var(--defer-soft) 40%, var(--defer-soft) 100%);
+  color: var(--forest);
+}
+.pill.dot { padding-left: 24px; position: relative; }
+.pill.dot::before {
+  content: ""; position: absolute; left: 10px; top: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
+  transform: translateY(-50%);
+  background: var(--defer);
+}
+.pill.dot.active::before { background: var(--mvp); }
+
+/* -------- Ilink (arrow link) -------- */
+.ilink {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: 14px; letter-spacing: -0.01em;
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 4px;
+}
+.ilink:hover .arr { transform: translateX(4px); }
+.ilink .arr { transition: transform 0.2s; }
+
+/* -------- Image grid (moodboard) -------- */
+.imggrid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.imggrid .ig { border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: var(--paper-2); aspect-ratio: 1 / 1; }
+.imggrid .ig img { width: 100%; height: 100%; object-fit: cover; }
+.imggrid .ig.wide { aspect-ratio: 16 / 9; }
+.imggrid .ig.tall { aspect-ratio: 3 / 4; }
+.imggrid .span3 { grid-column: span 3; }
+.imggrid .span4 { grid-column: span 4; }
+.imggrid .span6 { grid-column: span 6; }
+.imggrid .span8 { grid-column: span 8; }
+@media (max-width: 820px) { .imggrid .span3, .imggrid .span4, .imggrid .span6, .imggrid .span8 { grid-column: span 6; } }
+
+/* -------- Scroll reveal -------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* -------- Custom cursor dot -------- */
+@media (hover: hover) and (pointer: fine) {
+  .cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s, height 0.25s, background 0.25s, opacity 0.2s;
+    opacity: 0;
+  }
+  .cursor.ready { opacity: 1; }
+  .cursor.hover {
+    width: 52px; height: 52px;
+    background: color-mix(in oklab, var(--terracotta) 60%, transparent);
+  }
+}
+
+/* -------- Intro curtain -------- */
+.intro-curtain {
+  position: fixed; inset: 0;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid; place-items: center;
+  z-index: 10000;
+  transition: transform 1.1s cubic-bezier(.86,0,.07,1);
+}
+.intro-curtain.gone { transform: translateY(-100%); pointer-events: none; }
+.intro-inner {
+  text-align: center;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(40px, 6vw, 80px);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.intro-inner em {
+  font-family: var(--f-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--terracotta);
+}
+.intro-inner .row {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.intro-inner .row span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: intro-rise 0.9s cubic-bezier(.2,.8,.2,1) forwards;
+}
+.intro-inner .row:nth-child(1) span { animation-delay: 0.08s; }
+.intro-inner .row:nth-child(2) span { animation-delay: 0.22s; }
+.intro-inner .row:nth-child(3) span { animation-delay: 0.36s; }
+@keyframes intro-rise {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+.intro-meta {
+  position: absolute; bottom: 32px; left: 0; right: 0;
+  display: flex; justify-content: space-between;
+  padding-inline: var(--gutter);
+  font-family: var(--f-mono); font-size: 11px;
+  color: oklch(0.70 0.012 60);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* -------- Footer caption / big eyebrow -------- */
+.big-eyebrow {
+  font-family: var(--f-mono); font-size: 12px;
+  letter-spacing: 0.1em; color: var(--ink-mute);
+  text-transform: uppercase; font-weight: 500;
+}
+
+/* -------- Utility — simple spacer -------- */
+.sp-80  { height: 80px; }
+.sp-120 { height: 120px; }
+
+/* -------- Site footer strip (paper, outside CTA) -------- */
+.site-foot {
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  padding: 26px 0;
+}
+.site-foot-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 32px;
+  font-family: var(--f-body);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.site-foot .sf-mid { white-space: nowrap; }
+@media (max-width: 1100px) { .site-foot .sf-mid { white-space: normal; } }
+.site-foot .sf-left {
+  display: flex; align-items: center; gap: 8px;
+  justify-self: start;
+}
+.site-foot .sf-dot { color: var(--ink-mute); }
+.site-foot .sf-mid {
+  justify-self: center;
+  text-align: center;
+  color: var(--ink);
+}
+.site-foot .sf-mid .spark { color: var(--mustard); }
+.site-foot .sf-right {
+  display: flex; align-items: center; gap: 28px;
+  justify-self: end;
+}
+.site-foot .sf-right a {
+  color: var(--ink-soft);
+  transition: color 0.2s;
+  position: relative;
+}
+.site-foot .sf-right a:hover { color: var(--terracotta); }
+@media (max-width: 900px) {
+  .site-foot-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: center;
+  }
+  .site-foot .sf-left, .site-foot .sf-right { justify-self: center; flex-wrap: wrap; justify-content: center; }
+}
+
+  /* Planty wordmark in hero */
+  .planty-brand {
+    display: inline-flex;
+    margin: 18px 0 24px;
+    align-items: center;
+  }
+  .planty-brand svg {
+    width: 128px; height: 30px;
+    display: block;
+  }
+  .planty-brand svg path { fill: var(--forest) !important; }
+
+  /* Rebranded site screenshot pair */
+  .site-shots {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  @media (max-width: 820px) { .site-shots { grid-template-columns: 1fr; } }
+  .site-shots .shot {
+    margin: 0;
+    border: 1px solid var(--ink);
+    border-radius: 20px; overflow: hidden;
+    background: var(--paper);
+    display: flex; flex-direction: column;
+  }
+  .site-shots .shot-frame {
+    background: #f4f1eb;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    position: relative;
+  }
+  .site-shots .shot-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .site-shots figcaption {
+    padding: 18px 22px;
+    border-top: 1px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .site-shots figcaption strong {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: 15px; color: var(--ink);
+    letter-spacing: -0.01em; text-transform: none;
+  }
+
+</style>
+
+<style>
+  /* Flight case study — mustard hero; cream body sections */
+  .cs-hero {
+    background: var(--mustard);
+    color: var(--ink);
+    padding: clamp(60px, 10vh, 120px) 0 clamp(60px, 10vh, 120px);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--ink);
+  }
+  .cs-hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 85% 20%, color-mix(in oklab, var(--terracotta) 25%, transparent), transparent 55%);
+    opacity: 0.7;
+  }
+  .cs-hero .container { position: relative; z-index: 1; }
+  .cs-hero .cs-eye {
+    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: color-mix(in oklab, var(--ink) 65%, transparent);
+    margin-bottom: 32px; display: block;
+  }
+  .cs-hero h1 {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: clamp(56px, 9vw, 136px);
+    line-height: 0.94; letter-spacing: -0.04em;
+    margin: 0 0 48px; max-width: 16ch;
+    color: var(--ink);
+  }
+  .cs-hero h1 em {
+    font-family: var(--f-serif); font-weight: 400; font-style: italic;
+    color: var(--terracotta);
+    letter-spacing: -0.01em;
+  }
+  .cs-hero .cs-lede {
+    max-width: 56ch; font-size: 18px; color: var(--ink);
+    line-height: 1.55; margin: 0 0 48px;
+  }
+  .cs-hero .wip-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+    padding: 10px 18px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    color: var(--ink);
+  }
+  .cs-hero .wip-chip .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--terracotta);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .cs-meta {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    padding-top: 40px;
+    border-top: 1px solid color-mix(in oklab, var(--ink) 35%, transparent);
+    font-family: var(--f-mono); font-size: 12px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: color-mix(in oklab, var(--ink) 65%, transparent);
+  }
+  @media (max-width: 820px) { .cs-meta { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+  .cs-meta .m-k { color: color-mix(in oklab, var(--ink) 50%, transparent); display: block; margin-bottom: 6px; }
+  .cs-meta .m-v { color: var(--ink); font-family: var(--f-display); font-weight: 500; font-size: 14px; letter-spacing: -0.01em; text-transform: none; }
+
+  /* Content sections */
+  .cs-section { padding: 100px 0; }
+  .cs-section.alt { background: var(--paper-2); }
+  .cs-section.cream { background: var(--mustard-soft); }
+
+  .cs-twocol {
+    display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+    align-items: baseline;
+  }
+  @media (max-width: 900px) { .cs-twocol { grid-template-columns: 1fr; gap: 16px; } }
+  .cs-twocol .num {
+    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--terracotta); font-weight: 500;
+  }
+  .cs-twocol h2 {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: -0.03em; line-height: 1.02;
+    margin: 0 0 28px;
+  }
+  .cs-twocol h2 em { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .cs-twocol p { font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 1.1em; max-width: 62ch; }
+  .cs-twocol p strong { color: var(--ink); font-weight: 500; }
+
+  /* Focus cards */
+  .focus-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    margin-top: 48px;
+  }
+  @media (max-width: 900px) { .focus-grid { grid-template-columns: 1fr; } }
+  .focus {
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 20px;
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .focus .fn { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--terracotta); text-transform: uppercase; font-weight: 500; }
+  .focus h4 { font-family: var(--f-display); font-weight: 500; font-size: 22px; letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
+  .focus h4 em { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft); }
+  .focus p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+  /* Research tile — Miro link cards */
+  .research-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) { .research-grid { grid-template-columns: 1fr; } }
+  .research-tile {
+    display: block;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 20px;
+    overflow: hidden;
+    color: inherit; text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .research-tile:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px oklch(0.25 0.04 60 / 0.3); }
+  .research-tile .rt-canvas {
+    aspect-ratio: 16 / 10;
+    position: relative; overflow: hidden;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--ink);
+  }
+  .research-tile .rt-canvas::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, transparent 80%);
+  }
+  .research-tile .rt-inner { position: absolute; inset: 0; padding: 32px; }
+  .research-tile .rt-blip {
+    position: absolute;
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    background: var(--paper);
+    font-family: var(--f-mono); font-size: 10px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 6px 10px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .research-tile .rt-blip.t { top: 22%; left: 10%; }
+  .research-tile .rt-blip.t2 { top: 40%; left: 44%; background: var(--mustard-soft); }
+  .research-tile .rt-blip.t3 { top: 62%; left: 18%; background: var(--terracotta-soft); }
+  .research-tile .rt-blip.t4 { top: 28%; left: 66%; background: var(--forest-soft); }
+  .research-tile .rt-blip.t5 { top: 72%; left: 56%; }
+  .research-tile.cjm .rt-blip { border-radius: 999px; padding: 6px 14px; }
+  .research-tile .rt-caption {
+    padding: 22px 26px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+  }
+  .research-tile .rt-caption .lbl {
+    font-family: var(--f-mono); font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute);
+  }
+  .research-tile .rt-caption strong {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: 17px; letter-spacing: -0.01em; color: var(--ink);
+    display: block; margin-top: 2px;
+  }
+  .research-tile .rt-caption strong em {
+    font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft);
+  }
+  .research-tile .rt-go {
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    color: var(--ink);
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .research-tile:hover .rt-go { background: var(--ink); color: var(--paper); }
+
+  /* Video embeds */
+  .video-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) { .video-grid { grid-template-columns: 1fr; } }
+  .video-card {
+    border: 1px solid var(--ink);
+    border-radius: 20px; overflow: hidden;
+    background: var(--ink);
+  }
+  .video-wrap {
+    padding: 75% 0 0 0; position: relative;
+    background: var(--ink);
+  }
+  .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-card .vc-cap {
+    padding: 18px 22px;
+    background: var(--paper);
+    border-top: 1px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .video-card .vc-cap strong {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: 15px; color: var(--ink);
+    letter-spacing: -0.01em; text-transform: none;
+  }
+
+  /* Finding list */
+  .finding-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--ink); }
+  .finding-item {
+    display: grid; grid-template-columns: 80px 1fr 180px; gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  @media (max-width: 820px) {
+    .finding-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+  .finding-item .fi-num {
+    font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em;
+    color: var(--terracotta); text-transform: uppercase; font-weight: 500;
+  }
+  .finding-item .fi-body h4 {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.02em;
+    margin: 0 0 8px; line-height: 1.15;
+  }
+  .finding-item .fi-body h4 em { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft); }
+  .finding-item .fi-body p { margin: 0; font-size: 15.5px; color: var(--ink-soft); line-height: 1.55; max-width: 60ch; }
+  .finding-item .fi-tag {
+    font-family: var(--f-mono); font-size: 10.5px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute);
+    padding: 6px 12px; border: 1px solid var(--rule-strong); border-radius: 999px;
+    justify-self: end;
+    white-space: nowrap;
+  }
+  @media (max-width: 820px) { .finding-item .fi-tag { justify-self: start; } }
+
+  /* HMW cards */
+  .hmw-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) { .hmw-grid { grid-template-columns: 1fr; } }
+  .hmw {
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 20px;
+    padding: 36px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .hmw .hmw-n { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; }
+  .hmw h4 {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: clamp(24px, 2.4vw, 30px);
+    letter-spacing: -0.025em; line-height: 1.1;
+    margin: 0;
+  }
+  .hmw h4 em { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft); }
+  .hmw p { font-size: 15px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+  /* Wireframe / final design placeholders */
+  .wf-stage {
+    margin-top: 40px;
+    background: var(--paper);
+    border: 1px dashed var(--ink);
+    border-radius: 24px;
+    padding: clamp(40px, 6vw, 80px);
+    display: grid; grid-template-columns: 240px 1fr; gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .wf-stage { grid-template-columns: 1fr; gap: 24px; } }
+  .wf-stage .wf-phones {
+    display: flex; gap: 14px; justify-content: center;
+  }
+  .wf-stage .wf-phone {
+    width: 88px; height: 176px;
+    border: 1px solid var(--ink);
+    border-radius: 14px;
+    background: var(--paper-2);
+    position: relative; overflow: hidden;
+  }
+  .wf-stage .wf-phone.off { transform: rotate(-4deg) translateY(6px); opacity: 0.75; }
+  .wf-stage .wf-phone.on  { transform: rotate(3deg); }
+  .wf-stage .wf-phone::before {
+    content: ""; position: absolute; top: 10px; left: 10px; right: 10px; height: 6px;
+    border-radius: 3px; background: color-mix(in oklab, var(--ink) 18%, transparent);
+  }
+  .wf-stage .wf-phone::after {
+    content: ""; position: absolute; top: 28px; left: 10px; right: 10px; bottom: 18px;
+    background-image: repeating-linear-gradient(to bottom,
+      color-mix(in oklab, var(--ink) 12%, transparent) 0 4px,
+      transparent 4px 12px);
+  }
+  .wf-stage .wf-copy .wf-lbl {
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--terracotta); font-weight: 500;
+  }
+  .wf-stage .wf-copy h3 {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 40px);
+    letter-spacing: -0.025em; line-height: 1.05;
+    margin: 12px 0 14px; max-width: 22ch;
+  }
+  .wf-stage .wf-copy h3 em { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft); }
+  .wf-stage .wf-copy p { font-size: 15px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 14px; max-width: 56ch; }
+  .wf-stage .wf-copy .wf-status {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid var(--ink); border-radius: 999px;
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  .wf-stage .wf-copy .wf-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terracotta); }
+
+  /* Outcome band reused */
+  .outcome-band {
+    background: var(--mustard);
+    border: 1px solid var(--ink);
+    border-radius: 28px;
+    padding: clamp(40px, 6vw, 72px);
+    margin-top: 56px;
+  }
+  .outcome-band h3 {
+    font-family: var(--f-display); font-weight: 500;
+    font-size: clamp(30px, 4vw, 48px);
+    letter-spacing: -0.03em; line-height: 1.05;
+    margin: 0 0 16px; max-width: 28ch;
+  }
+  .outcome-band h3 em { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft); }
+  .outcome-band p { max-width: 60ch; font-size: 16px; color: var(--ink); line-height: 1.55; margin: 0; }
+
+  /* More work */
+  .more-work { margin-top: 120px; padding-top: 48px; border-top: 1px solid var(--rule); margin-bottom: 80px; }
+  .mw-head { display: flex; align-items: baseline; gap: 24px; margin-bottom: 32px; }
+  .mw-eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--ink-mute); }
+  .mw-title { font-family: var(--f-display); font-weight: 500; font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.03em; line-height: 1.02; margin: 0; color: var(--ink); }
+  .mw-title em { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .mw-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  @media (max-width: 900px) { .mw-grid { grid-template-columns: 1fr; } }
+  .mw-card {
+    display: block;
+    border: 1px solid var(--ink);
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--paper-2, var(--paper));
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s;
+    color: inherit; text-decoration: none;
+  }
+  .mw-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -30px oklch(0.25 0.04 60 / 0.28); }
+  .mw-visual { min-height: 240px; display: grid; place-items: center; padding: 32px; }
+  .mw-mark { font-family: var(--f-display); font-weight: 500; font-size: clamp(72px, 10vw, 120px); letter-spacing: -0.04em; line-height: 1; }
+  .mw-mark em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: currentColor; opacity: 0.8; }
+  .mw-forest .mw-visual { background: var(--forest); color: oklch(0.96 0.02 155); }
+  .mw-navy .mw-visual { background: var(--navy); color: oklch(0.96 0.02 255); }
+  .mw-plum .mw-visual { background: var(--plum); color: oklch(0.96 0.02 330); }
+  .mw-body { padding: 24px 28px 28px; border-top: 1px solid var(--ink); background: var(--paper); display: flex; flex-direction: column; gap: 14px; }
+  .mw-tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--ink-mute); align-self: flex-start; padding: 4px 10px; border: 1px solid var(--rule-strong, var(--rule)); border-radius: 999px; }
+  .mw-h3 { font-family: var(--f-display); font-weight: 500; font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin: 0; }
+  .mw-meta { margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.05em; color: var(--ink-mute); text-transform: uppercase; }
+  .mw-meta > div { display: flex; gap: 10px; }
+  .mw-meta dt { min-width: 64px; color: var(--ink); font-weight: 500; margin: 0; }
+  .mw-meta dd { margin: 0; }
+  .mw-cta { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 500; font-size: 14px; color: var(--ink); padding: 12px 20px; border: 1.5px solid var(--ink); border-radius: 999px; margin-top: 6px; transition: background 0.2s, color 0.2s; }
+  .mw-card:hover .mw-cta { background: var(--ink); color: var(--paper); }
+  .mw-cta .arr { transition: transform 0.2s; }
+  .mw-card:hover .mw-cta .arr { transform: translateX(4px); }
+
+  /* Ending note — WIP disclaimer */
+  .end-note {
+    margin-top: 56px;
+    padding: 28px 32px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule-strong);
+    border-radius: 16px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .end-note .en-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); margin-top: 8px; flex: 0 0 auto; }
+  .end-note p { margin: 0; font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; max-width: 70ch; }
+  .end-note p strong { color: var(--ink); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand"><span class="dot"></span>Elisabetta Squarci <em>— portfolio</em></a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Work</a>
+      <a href="about.html">About</a>
+      <a href="mailto:esquarci@gmail.com">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="cs-hero">
+  <div class="container">
+    <span class="cs-eye">Case study · 02 / 04</span>
+    <span class="wip-chip reveal"><span class="dot"></span>Work in progress · Research complete</span>
+    <h1 class="reveal">A booking experience for <em>Skyline</em>, a fictional airline.</h1>
+    <p class="cs-lede reveal">An end-to-end UX project designing the booking flow for <strong>Skyline</strong>, a fictional start-up airline. The brief: a fast, easy and intuitive online experience built on a deep understanding of the target users. Research is complete; designs are in progress.</p>
+
+    <div class="cs-meta reveal" style="--reveal-delay: 0.1s;">
+      <div>
+        <span class="m-k">Role</span>
+        <span class="m-v">End-to-end UX (solo)</span>
+      </div>
+      <div>
+        <span class="m-k">Brief</span>
+        <span class="m-v">UX Design Institute — capstone</span>
+      </div>
+      <div>
+        <span class="m-k">Stage</span>
+        <span class="m-v">Research &amp; discovery</span>
+      </div>
+      <div>
+        <span class="m-k">Year</span>
+        <span class="m-v">2026 — ongoing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Context -->
+<section class="cs-section">
+  <div class="container cs-twocol reveal">
+    <span class="num">01 — Project overview</span>
+    <div>
+      <h2>Designing a <em>booking</em> experience for a fictional airline.</h2>
+      <p>The aim of this project was to design a website for <strong>Skyline</strong>, a fictional airline start-up. The brief specified that the online experience should be fast, easy, and intuitive — based on a deep understanding of the target users.</p>
+      <p>The end goal was to design and build a <strong>clickable prototype</strong> that can be tested with users, alongside a detailed set of wireframes that can be handed over to UI designers and then developers.</p>
+      <p>Everything in this case study has been completed by me. I am responsible for all research and UX design; the focus is on usability of the product. In a real-world scenario, this project would be passed over to UI designers and then developers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Problem -->
+<section class="cs-section alt">
+  <div class="container cs-twocol reveal">
+    <span class="num">02 — Problem</span>
+    <div>
+      <h2>The flow works — until users hit the <em>decision</em> points.</h2>
+      <p>While the overall booking flow is perceived as relatively simple, users encounter friction and confusion at key decision points — particularly around <strong>fare selection, pricing clarity, and add-ons</strong>.</p>
+      <p>The experience often requires extra cognitive effort to understand what is included, what is optional, and what the total cost actually is — which leads to hesitation, misinterpretation, or missed actions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 Research — Interviews -->
+<section class="cs-section">
+  <div class="container cs-twocol reveal">
+    <span class="num">03 — User Interviews</span>
+    <div>
+      <h2>Six <em>usability</em> sessions in total, coded end-to-end.</h2>
+      <p>I ran and analysed <strong>two moderated usability tests</strong> with participants booking a real trip against their own criteria, using an existing flight-search product as the baseline. Each session was screen-recorded with think-aloud narration, then coded for friction points and behavioural patterns.</p>
+      <p>I was also provided with <strong>four additional usability test recordings</strong> — two users each running through two separate booking websites — which I analysed and coded using the same note-taking framework. The findings below triangulate across all six sessions.</p>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-wrap"><iframe src="https://player.vimeo.com/video/1185224592?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Usability Test Pt.1"></iframe></div>
+          <div class="vc-cap"><strong>Usability Test — Part 1</strong><span>Moderated · Own session</span></div>
+        </div>
+        <div class="video-card">
+          <div class="video-wrap"><iframe src="https://player.vimeo.com/video/1185224661?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Usability Test Pt.2"></iframe></div>
+          <div class="vc-cap"><strong>Usability Test — Part 2</strong><span>Moderated · Own session</span></div>
+        </div>
+      </div>
+
+      <div class="end-note" style="margin-top: 32px;">
+        <span class="en-dot"></span>
+        <p><strong>Plus four supplied recordings — </strong>two additional participants each completing tasks on two separate airline booking websites. I coded them with the same observation framework used above, and their patterns are folded into the findings in section 05.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 Research — Synthesis (Miro links) -->
+<section class="cs-section alt">
+  <div class="container cs-twocol reveal">
+    <span class="num">04 — Research · Synthesis</span>
+    <div>
+      <h2>Clustering the <em>noise</em> into patterns.</h2>
+      <p>I built an affinity diagram from the raw observations — every quote, hesitation and error became a note — then used the clusters to map a customer journey that tracked emotion, thought and action across the full booking flow. Both boards live in Miro.</p>
+
+      <div class="research-grid">
+        <a class="research-tile" href="https://miro.com/app/board/uXjVJB0nVR4=/?share_link_id=744460194864" target="_blank" rel="noopener">
+          <div class="rt-canvas">
+            <div class="rt-inner">
+              <span class="rt-blip t">"too many tabs"</span>
+              <span class="rt-blip t2">price ≠ value</span>
+              <span class="rt-blip t3">time-to-book</span>
+              <span class="rt-blip t4">hidden fees</span>
+              <span class="rt-blip t5">filter fatigue</span>
+            </div>
+          </div>
+          <div class="rt-caption">
+            <div>
+              <span class="lbl">Affinity diagram</span>
+              <strong>Clustering observations into <em>themes</em></strong>
+            </div>
+            <span class="rt-go">Open in Miro →</span>
+          </div>
+        </a>
+
+        <a class="research-tile cjm" href="https://miro.com/app/board/uXjVJB0nVR4=/?share_link_id=744460194864" target="_blank" rel="noopener">
+          <div class="rt-canvas">
+            <div class="rt-inner">
+              <span class="rt-blip t">Trigger</span>
+              <span class="rt-blip t2">Search</span>
+              <span class="rt-blip t3">Compare</span>
+              <span class="rt-blip t4">Decide</span>
+              <span class="rt-blip t5">Book</span>
+            </div>
+          </div>
+          <div class="rt-caption">
+            <div>
+              <span class="lbl">Customer journey map</span>
+              <strong>Tracking emotion across the <em>flow</em></strong>
+            </div>
+            <span class="rt-go">Open in Miro →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Usability test findings -->
+<section class="cs-section">
+  <div class="container cs-twocol reveal">
+    <span class="num">05 — Key findings</span>
+    <div>
+      <h2>Six patterns surfaced across the <em>usability</em> sessions.</h2>
+      <p>Key observations triangulated across both usability tests and the affinity diagram. Each is paired with the impact on user behaviour.</p>
+
+      <div class="finding-list">
+        <div class="finding-item">
+          <span class="fi-num">F · 01</span>
+          <div class="fi-body">
+            <h4>Fare selection is the biggest source of <em>confusion</em>.</h4>
+            <p>Users struggle to understand fare names and what each option includes. Naming (e.g. “Essentials”) does not match user expectations, and important details like baggage allowance are not immediately clear.<br><strong>Impact — </strong>users are unsure which option best fits their needs and may choose incorrectly or spend extra time comparing.</p>
+          </div>
+          <span class="fi-tag">High severity</span>
+        </div>
+        <div class="finding-item">
+          <span class="fi-num">F · 02</span>
+          <div class="fi-body">
+            <h4>Pricing lacks <em>transparency</em> across the journey.</h4>
+            <p>Users are unclear whether prices are total or duplicated (e.g. outbound vs return). Add-ons like insurance or seats aren't always clearly reflected in the total, and there's no pricing guidance on things like the seat map legend.<br><strong>Impact — </strong>users feel less confident in the final price and may double-check or hesitate before proceeding.</p>
+          </div>
+          <span class="fi-tag">High severity</span>
+        </div>
+        <div class="finding-item">
+          <span class="fi-num">F · 03</span>
+          <div class="fi-body">
+            <h4>Add-ons and extras create <em>cognitive overload</em>.</h4>
+            <p>Users often skip extras (insurance, car rental) unless clearly relevant. Some add extras only in specific contexts — longer trips, family needs — and upsell banners are frequently ignored or misunderstood.<br><strong>Impact — </strong>opportunities for upsell are missed, and users may overlook relevant options.</p>
+          </div>
+          <span class="fi-tag">Medium severity</span>
+        </div>
+        <div class="finding-item">
+          <span class="fi-num">F · 04</span>
+          <div class="fi-body">
+            <h4>Interface clarity issues lead to <em>missed</em> actions.</h4>
+            <p>Subtle UI elements (faint checkboxes, small pop-ups) are overlooked. Users miss key actions like selecting seats or declining add-ons, and some labels are unclear (e.g. “As shown on document”).<br><strong>Impact — </strong>users make errors, skip steps unintentionally, or feel uncertain about their selections.</p>
+          </div>
+          <span class="fi-tag">High severity</span>
+        </div>
+        <div class="finding-item">
+          <span class="fi-num">F · 05</span>
+          <div class="fi-body">
+            <h4>Strong expectations around <em>checkout</em> and automation.</h4>
+            <p>Users expect a clear, final breakdown of flights and extras at checkout, autofill for details like payee info and country code, and transparency in discounts, memberships and payment options.<br><strong>Impact — </strong>when these expectations aren't met, trust and perceived usability decrease.</p>
+          </div>
+          <span class="fi-tag">Medium severity</span>
+        </div>
+        <div class="finding-item">
+          <span class="fi-num">F · 06</span>
+          <div class="fi-body">
+            <h4>Flight selection <em>works well</em>.</h4>
+            <p>Users find the flight selection layout clear and easy to compare. Side-by-side pricing and summary cards are effective, and the process feels straightforward up to this point.<br><strong>Impact — </strong>this is a strong part of the experience and sets a good foundation to build from.</p>
+          </div>
+          <span class="fi-tag">Positive signal</span>
+        </div>
+      </div>
+
+      <div class="outcome-band" style="margin-top: 64px;">
+        <h3>The booking journey is functionally effective but <em>cognitively</em> demanding.</h3>
+        <p>Clarity — especially around fares, pricing and add-ons — is the main usability gap. Improving information hierarchy, naming and visual feedback would significantly reduce confusion and increase user confidence throughout the journey.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 HMW / Design goals -->
+<section class="cs-section cream">
+  <div class="container cs-twocol reveal">
+    <span class="num">06 — Design goals</span>
+    <div>
+      <h2>From findings to <em>how-might-wes.</em></h2>
+      <p>The findings resolved into four design goals that the app will be judged against:</p>
+
+      <div class="hmw-grid">
+        <div class="hmw">
+          <span class="hmw-n">HMW · 01</span>
+          <h4>How might we make <em>fare differences</em> obvious at a glance?</h4>
+          <p>Replace abstract fare names with clear inclusion summaries, surface baggage and flexibility on the card itself, and make comparison between fares feel direct.</p>
+        </div>
+        <div class="hmw">
+          <span class="hmw-n">HMW · 02</span>
+          <h4>How might we make pricing feel <em>trustworthy</em> end-to-end?</h4>
+          <p>Show one total that updates transparently as extras are added or removed. Clarify per-passenger vs trip total, and give price context for seat tiers and add-ons.</p>
+        </div>
+        <div class="hmw">
+          <span class="hmw-n">HMW · 03</span>
+          <h4>How might we make add-ons <em>relevant</em>, not noisy?</h4>
+          <p>Time and frame extras around user context — longer trips, family bookings, business travel — so the right prompts surface at the right moment, and the rest get out of the way.</p>
+        </div>
+        <div class="hmw">
+          <span class="hmw-n">HMW · 04</span>
+          <h4>How might we make <em>key actions</em> impossible to miss?</h4>
+          <p>Strengthen the visual hierarchy of critical controls (seat selection, opt-outs), rewrite ambiguous labels, and confirm choices with clear feedback before moving on.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Wireframes placeholder -->
+<section class="cs-section">
+  <div class="container cs-twocol reveal">
+    <span class="num">07 — Wireframes</span>
+    <div>
+      <h2>Low-fidelity flows, <em>coming soon.</em></h2>
+      <p>Wireframes are in progress — working through the search → results → comparison → checkout flow against the four HMW goals. First iteration will be posted here once tested.</p>
+
+      <div class="wf-stage">
+        <div class="wf-phones" aria-hidden="true">
+          <div class="wf-phone off"></div>
+          <div class="wf-phone on"></div>
+          <div class="wf-phone off"></div>
+        </div>
+        <div class="wf-copy">
+          <span class="wf-lbl">In progress</span>
+          <h3>Lo-fi screens being drafted in Figma.</h3>
+          <p>Expect the search, results, trade-off explorer and checkout flow — each tested against one of the four design goals before hi-fi.</p>
+          <span class="wf-status"><span class="dot"></span>Drafting · Week of posting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 Final design placeholder -->
+<section class="cs-section alt">
+  <div class="container cs-twocol reveal">
+    <span class="num">08 — Final designs</span>
+    <div>
+      <h2>Hi-fi screens will <em>land here.</em></h2>
+      <p>Once the wireframes are validated, I'll design the full hi-fi UI — colour, type, motion — and document the key interactions (flexibility explorer, layover preview, shortlist drawer, transparent checkout).</p>
+
+      <div class="wf-stage">
+        <div class="wf-phones" aria-hidden="true">
+          <div class="wf-phone off"></div>
+          <div class="wf-phone on"></div>
+          <div class="wf-phone off"></div>
+        </div>
+        <div class="wf-copy">
+          <span class="wf-lbl">Planned</span>
+          <h3>Hi-fi UI &amp; <em>prototype</em> to follow.</h3>
+          <p>Interactive Figma prototype with the four flagship interactions, plus a small motion pass for the trade-off explorer and the layover preview.</p>
+          <span class="wf-status"><span class="dot"></span>Up next</span>
+        </div>
+      </div>
+
+      <div class="outcome-band">
+        <h3>This case study will <em>grow</em> as the project does.</h3>
+        <p>I'm publishing research now so it can speak for itself, and adding wireframes and final designs as they're ready. Check back or drop me a line if you'd like to see work-in-progress screens.</p>
+      </div>
+
+      <div class="end-note">
+        <span class="en-dot"></span>
+        <p><strong>Next steps — </strong>complete lo-fi wireframes against the four HMW goals, run a second round of usability testing on the prototype, then move to hi-fi UI and document the hand-off. Designs will be added to this page as each milestone lands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- More work -->
+<section class="container more-work reveal">
+  <div class="mw-head">
+    <span class="mw-eyebrow">More work</span>
+    <h2 class="mw-title">Keep <em>exploring.</em></h2>
+  </div>
+  <div class="mw-grid">
+    <a class="mw-card mw-navy" href="unbolt-case-study.html">
+      <div class="mw-visual">
+        <span class="mw-mark">Unbolt<em>.</em></span>
+      </div>
+      <div class="mw-body">
+        <span class="mw-tag">Case study</span>
+        <h3 class="mw-h3">An AR repair companion for DIY mechanics.</h3>
+        <dl class="mw-meta">
+          <div><dt>Role</dt><dd>Product designer</dd></div>
+          <div><dt>Sector</dt><dd>Consumer · AR</dd></div>
+          <div><dt>Year</dt><dd>2024</dd></div>
+        </dl>
+        <span class="mw-cta">Read case study <span class="arr">→</span></span>
+      </div>
+    </a>
+
+    <a class="mw-card mw-forest" href="planty-case-study.html">
+      <div class="mw-visual">
+        <span class="mw-mark">Planty<em>.</em></span>
+      </div>
+      <div class="mw-body">
+        <span class="mw-tag">Case study</span>
+        <h3 class="mw-h3">Rebranding a subscription service for growth.</h3>
+        <dl class="mw-meta">
+          <div><dt>Role</dt><dd>Product &amp; Marketing</dd></div>
+          <div><dt>Sector</dt><dd>E-commerce</dd></div>
+          <div><dt>Year</dt><dd>2022 — 2023</dd></div>
+        </dl>
+        <span class="mw-cta">Read case study <span class="arr">→</span></span>
+      </div>
+    </a>
+  </div>
+</section>
+<script>
+(function() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+(function() {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const cursor = document.getElementById('cursor');
+  let tx=0,ty=0,cx=0,cy=0;
+  window.addEventListener('mousemove', e => { tx=e.clientX; ty=e.clientY; cursor.classList.add('ready'); });
+  function tick(){ cx+=(tx-cx)*0.22; cy+=(ty-cy)*0.22; cursor.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`; requestAnimationFrame(tick); } tick();
+  document.querySelectorAll('a, .focus, .ba-card, .outcome-band').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+})();
+</script>
+
+<footer class="site-foot">
+  <div class="container site-foot-inner">
+    <div class="sf-left">
+      <span id="sf-loc">London</span>
+      <span class="sf-dot">·</span>
+      <span id="sf-weather">12°C</span>
+      <span class="sf-dot">·</span>
+      <span id="sf-time">—</span>
+    </div>
+    <div class="sf-mid">I hope you enjoyed exploring my portfolio! Have a fantastic day <span class="spark">✦</span></div>
+    <div class="sf-right">
+      <a href="https://www.linkedin.com/in/elisabettasquarci/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:esquarci@gmail.com">Email</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function() {
+  const timeEl = document.getElementById('sf-time');
+  if (!timeEl) return;
+  function tick() {
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');
+    const ss = String(d.getSeconds()).padStart(2, '0');
+    timeEl.textContent = hh + ':' + mm + ':' + ss;
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
