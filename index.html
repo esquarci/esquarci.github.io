@@ -845,7 +845,7 @@ h1, h2, h3, h4, h5 {
 /* -------- Section header -------- */
 .sect-head {
   display: grid;
-  grid-template-columns: 200px 1fr auto;
+  grid-template-columns: 200px 1fr 200px;
   gap: 32px;
   padding-top: 32px;
   padding-bottom: 36px;
@@ -859,6 +859,7 @@ h1, h2, h3, h4, h5 {
   font-size: clamp(40px, 6vw, 80px);
   letter-spacing: -0.035em; line-height: 0.98;
   margin: 0;
+  text-align: center;
 }
 .sect-head .title em {
   font-family: var(--f-serif);
@@ -871,6 +872,7 @@ h1, h2, h3, h4, h5 {
   color: var(--ink-mute);
   letter-spacing: 0.08em; text-transform: uppercase;
   white-space: nowrap;
+  text-align: right;
 }
 
 /* -------- Process steps -------- */
