@@ -1098,7 +1098,7 @@ h1, h2, h3, h4, h5 {
   }
   @media (max-width: 900px) { .mw-grid { grid-template-columns: 1fr; } }
   .mw-card {
-    display: block;
+    display: flex; flex-direction: column;
     
     border-radius: 20px;
     overflow: hidden;
@@ -1131,7 +1131,7 @@ h1, h2, h3, h4, h5 {
     border-top: 1px solid var(--ink);
     background: var(--paper);
     display: flex; flex-direction: column; gap: 14px;
-  }
+   flex: 1 1 auto;}
   .mw-tag {
     font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em;
     text-transform: uppercase; font-weight: 500; color: var(--ink-mute);
