@@ -56,7 +56,7 @@
   /* Type */
   --f: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --f-display: 'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif;
-  --f-serif:   'Cabinet Grotesk', 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+  --f-serif:   'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif;
   --f-body:    'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --f-mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
 }
@@ -149,9 +149,9 @@ h1, h2, h3, h4, h5 {
 .display { font-family: var(--f-display); font-weight: 900; letter-spacing: -0.035em; line-height: 0.95; }
 .display em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
+  font-weight: 800; font-style: italic;
   letter-spacing: -0.01em;
-  color: var(--ink-soft);
+  color: inherit;
 }
 
 .h-hero    { font-size: clamp(64px, 11vw, 168px); }
@@ -248,8 +248,8 @@ h1, h2, h3, h4, h5 {
 }
 .pc-title em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
-  color: var(--ink-soft);
+  font-weight: 800; font-style: italic;
+  color: inherit;
   letter-spacing: -0.01em;
 }
 .pc-meta {
@@ -334,7 +334,7 @@ h1, h2, h3, h4, h5 {
 }
 .big-mark em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
+  font-weight: 400; font-style: italic;
   opacity: 0.85;
 }
 
@@ -378,8 +378,8 @@ h1, h2, h3, h4, h5 {
 }
 .stat .big em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
-  color: var(--ink-soft);
+  font-weight: 800; font-style: italic;
+  color: inherit;
   font-size: 0.62em;
   letter-spacing: -0.01em;
 }
@@ -415,8 +415,8 @@ h1, h2, h3, h4, h5 {
 }
 .svc h4 em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
-  color: var(--ink-soft);
+  font-weight: 800; font-style: italic;
+  color: inherit;
   letter-spacing: -0.01em;
 }
 .svc p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
@@ -455,8 +455,8 @@ h1, h2, h3, h4, h5 {
 }
 .quote-card blockquote em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
-  color: var(--ink);
+  font-weight: 800; font-style: italic;
+  color: inherit;
   letter-spacing: -0.01em;
 }
 .quote-card cite {
@@ -481,8 +481,8 @@ h1, h2, h3, h4, h5 {
 }
 .logos .logo-item.italic {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
-  color: var(--ink-soft);
+  font-weight: 800; font-style: italic;
+  color: inherit;
 }
 
 /* -------- Section header -------- */
@@ -505,8 +505,8 @@ h1, h2, h3, h4, h5 {
 }
 .sect-head .title em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
-  color: var(--ink-soft);
+  font-weight: 800; font-style: italic;
+  color: inherit;
   letter-spacing: -0.01em;
 }
 .sect-head .count {
@@ -532,6 +532,14 @@ h1, h2, h3, h4, h5 {
   letter-spacing: -0.02em; margin: 0;
 }
 .process-step p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+.process-step h5 em {
+  font-family: var(--f-serif); font-style: italic; font-weight: 600; color: var(--terracotta);
+}
+.process-step p em {
+  font-family: var(--f-serif); font-style: italic; color: var(--ink);
+}
+.process-step p strong { color: var(--ink); font-weight: 600; }
 
 /* -------- CTA block -------- */
 .cta-block {
@@ -559,8 +567,8 @@ h1, h2, h3, h4, h5 {
 }
 .cta-block h2 em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
-  color: var(--terracotta);
+  font-weight: 800; font-style: italic;
+  color: inherit;
   letter-spacing: -0.01em;
 }
 .cta-block .cta-links { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -955,7 +963,7 @@ h1, h2, h3, h4, h5 {
   .utype-quote {
     margin: 8px 0 0; padding: 14px 0 0;
     border-top: 1px solid var(--rule);
-    font-family: var(--f-serif); font-style: italic; font-weight: 700;
+    font-family: var(--f-serif); font-style: italic; font-weight: 400;
     font-size: 15px; line-height: 1.45;
     color: var(--ink-soft);
   }
@@ -966,13 +974,13 @@ h1, h2, h3, h4, h5 {
   .cs-section.alt { background: var(--paper-2); }
   .cs-section.cream { background: var(--paper-3); }
   .cs-section.acid { background: color-mix(in oklab, var(--acid) 35%, var(--paper)); }
-  .cs-section.sky { background: color-mix(in oklab, var(--sky) 18%, var(--paper)); }
+  .cs-section.sky { background: #cce0ff; }
   .cs-section h3.heading {
     font-family: var(--f-display); font-weight: 900;
     font-size: clamp(36px, 4.5vw, 56px); letter-spacing: -0.025em; line-height: 1.05;
     margin: 0 0 40px; max-width: 22ch;
   }
-  .cs-section h3.heading em { font-style: italic; color: var(--ink-soft); }
+  .cs-section h3.heading em { font-style: italic; color: inherit; font-weight: 800; }
 
   .two-col { display: grid; grid-template-columns: 180px 1fr; gap: 40px; align-items: start; padding-top: 24px; }
   @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; gap: 16px; } }
@@ -996,7 +1004,7 @@ h1, h2, h3, h4, h5 {
     color: var(--ink);
     text-wrap: balance;
   }
-  .pull p em { font-style: italic; color: var(--ink-soft); }
+  .pull p em { font-style: italic; color: inherit; font-weight: 800; }
   .pull .attrib {
     font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.06em;
     color: var(--ink-mute); margin-top: 24px; text-transform: uppercase;
@@ -1232,7 +1240,7 @@ h1, h2, h3, h4, h5 {
   /* ----- Hi-fi UI strip ----- */
   .hifi {
     margin-top: 40px;
-    background: linear-gradient(135deg, oklch(0.94 0.02 250) 0%, oklch(0.90 0.03 250) 100%);
+    background: #cce0ff;
     border-radius: 24px;
     padding: 64px 40px;
     overflow: hidden;
@@ -1294,7 +1302,7 @@ h1, h2, h3, h4, h5 {
     font-size: clamp(48px, 5vw, 72px); line-height: 1; letter-spacing: -0.03em;
     margin: 0 0 6px;
   }
-  .outcome-stat .big em { font-style: italic; color: var(--ink-soft); }
+  .outcome-stat .big em { font-style: italic; color: inherit; font-weight: 800; }
   .outcome-stat p { font-size: 15px; color: var(--ink-soft); line-height: 1.5; margin: 0; max-width: 36ch; }
 
   /* ----- Key learnings ----- */
@@ -1346,7 +1354,7 @@ h1, h2, h3, h4, h5 {
     color: var(--ink);
     margin: 0;
   }
-  .learn-card p em { font-style: italic; color: var(--ink-soft); }
+  .learn-card p em { font-style: italic; color: inherit; font-weight: 800; }
 
   /* ----- Next / footer nav ----- */
   .case-nav {
@@ -1365,11 +1373,11 @@ h1, h2, h3, h4, h5 {
     font-family: var(--f-display); font-size: clamp(22px, 2.4vw, 32px);
     font-weight: 400; letter-spacing: -0.01em;
   }
-  .case-nav .title em { font-style: italic; color: var(--ink-soft); }
+  .case-nav .title em { font-style: italic; color: inherit; font-weight: 800; }
   .case-nav .next { text-align: right; }
 
   /* More work — project cards */
-  .more-work { margin-top: 120px; padding-top: 48px; border-top: 1px solid var(--rule); margin-bottom: 80px; }
+  .more-work { margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--rule); margin-bottom: 80px; }
   .mw-head { display: flex; align-items: baseline; gap: 24px; margin-bottom: 32px; }
   .mw-eyebrow {
     font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em;
@@ -1381,7 +1389,7 @@ h1, h2, h3, h4, h5 {
     letter-spacing: -0.03em; line-height: 1.02;
     margin: 0; color: var(--ink);
   }
-  .mw-title em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .mw-title em { font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit; letter-spacing: -0.01em; }
   .mw-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1410,7 +1418,7 @@ h1, h2, h3, h4, h5 {
     letter-spacing: -0.04em; line-height: 1;
   }
   .mw-mark em {
-    font-family: var(--f-serif); font-style: italic; font-weight: 700;
+    font-family: var(--f-serif); font-style: italic; font-weight: 800;
     color: currentColor; opacity: 0.8;
   }
   .mw-forest .mw-visual { background: var(--forest); color: oklch(0.96 0.02 155); }
@@ -1480,7 +1488,7 @@ h1, h2, h3, h4, h5 {
 <section class="cs-hero">
   <div class="container">
     <span class="cs-eyebrow reveal">Case study · 01 / 04</span>
-    <h1 class="cs-title reveal">Unbolt — an <em>AR repair companion</em> for DIY mechanics.</h1>
+    <h1 class="cs-title reveal">Unbolt — an <em style="color: rgb(82, 156, 255)">AR repair companion</em> for DIY mechanics.</h1>
 
     <div class="cs-meta reveal" style="--reveal-delay: 0.1s;">
       <div>
@@ -1504,7 +1512,7 @@ h1, h2, h3, h4, h5 {
 </section>
 
 <!-- Hero visual strip -->
-<section class="cs-section" style="padding-top: 0;">
+<section class="cs-section" style="padding-top: 0; padding-bottom: 0;">
   <div class="container">
     <!-- Branded hero visual -->
   </div>
@@ -1516,7 +1524,7 @@ h1, h2, h3, h4, h5 {
     <div class="two-col">
       <div class="label-col"><span class="num">01</span>Context</div>
       <div>
-        <h3 class="heading">Working with founders <em>at Hyper.</em></h3>
+        <h3 class="heading">Working with founders <em style="color: rgb(26, 24, 20)">at Hyper.</em></h3>
         <div class="body-lg">
           <p>At Hyper, I worked with early-stage founders as an embedded product manager — somewhere between a co-founder and a consultant. My job was to help founders with a strong sense of what they wanted to build figure out what they needed to build <em>first</em>.</p>
           <p>Unbolt's founder, Omar, arrived with a clear idea — an AR-powered app guiding DIY mechanics through repairs step by step — and real conviction. My role was to shape that energy into something a developer could build and an investor could believe in, within a realistic scope.</p>
@@ -1528,10 +1536,42 @@ h1, h2, h3, h4, h5 {
 
 
 <!-- SECTION 2 — Users -->
+<!-- SECTION 02 — Discovery workshop -->
 <section class="cs-section alt">
   <div class="container">
     <div class="two-col">
-      <div class="label-col"><span class="num">02</span>Users</div>
+      <div class="label-col"><span class="num">02</span>Discovery</div>
+      <div>
+        <h3 class="heading">Starting with a <em>workshop,</em> not a wireframe.</h3>
+        <div class="body-lg">
+          <p>I kicked the project off by running a discovery workshop with the founder to unpack the idea. We focused on the core problem to solve, the target users and their behaviours, and the envisioned solution — followed by an initial feature dump covering everything from AR guidance and diagnostics to a marketplace and community.</p>
+          <p>The workshop aligned us on the vision, but it also surfaced a familiar 0→1 challenge: too many ideas, not enough focus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — Exploration & research -->
+<section class="cs-section">
+  <div class="container">
+    <div class="two-col">
+      <div class="label-col"><span class="num">03</span>Exploration</div>
+      <div>
+        <h3 class="heading">Mapping <em>what already exists</em> before adding to it.</h3>
+        <div class="body-lg">
+          <p>I translated the workshop outputs into a structured exploration phase in FigJam — brainstorming sessions with the commercial team, competitor analysis (YouTube, Haynes, AllData), market and user-behaviour research, and mapping how users currently solve the problem.</p>
+          <p>The goal here was simple: understand what already exists, and find where Unbolt could genuinely add value rather than reinvent it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section alt">
+  <div class="container">
+    <div class="two-col">
+      <div class="label-col"><span class="num">04</span>Users</div>
       <div>
         <h3 class="heading">Three user types, <em>one shared challenge.</em></h3>
         <div class="body-lg">
@@ -1584,7 +1624,7 @@ h1, h2, h3, h4, h5 {
 <section class="cs-section">
   <div class="container">
     <div class="two-col">
-      <div class="label-col"><span class="num">03</span>Problem</div>
+      <div class="label-col"><span class="num">05</span>Problem</div>
       <div>
         <h3 class="heading">A fragmented experience for people who want to <em>fix their own cars.</em></h3>
         <div class="body-lg">
@@ -1594,7 +1634,7 @@ h1, h2, h3, h4, h5 {
     </div>
 
     <div class="card-row" style="margin-top: 48px;">
-          <div class="scard scard--dark">
+          <div class="scard scard--dark" style="background-color: rgb(204, 224, 255)">
             <span class="scard-tag">Information</span>
             <h4 class="scard-title">Manuals are outdated and generic.</h4>
             <p class="scard-body">Printed guides cover the make but rarely the specific model year, engine variant or trim that's sitting on the driveway.</p>
@@ -1608,7 +1648,7 @@ h1, h2, h3, h4, h5 {
             <p class="scard-body">Quality varies wildly. Users spend time cross-checking three videos before they feel safe touching anything.</p>
             <span class="scard-num">02</span>
           </div>
-          <div class="scard scard--dark">
+          <div class="scard scard--dark" style="background-color: rgb(204, 224, 255)">
             <span class="scard-tag">Orientation</span>
             <h4 class="scard-title">"Which part is this, exactly?"</h4>
             <p class="scard-body">Engine bays look nothing like the diagrams. Identifying the right component in real life is the first stumbling block.</p>
@@ -1624,16 +1664,22 @@ h1, h2, h3, h4, h5 {
   </div>
 </section>
 
-<!-- SECTION 4 — Process -->
+<!-- SECTION 4a — Discovery workshop -->
+
+
+<!-- SECTION 4b — Exploration & research -->
+
+
+<!-- SECTION 4c — Process / Prioritisation -->
 <section class="cs-section alt">
   <div class="container">
     <div class="two-col">
-      <div class="label-col"><span class="num">04</span>Process</div>
+      <div class="label-col"><span class="num">06</span>Prioritisation</div>
       <div>
         <h3 class="heading">From too many features <em>to just 8.</em></h3>
         <div class="body-lg">
-          <p>After the discovery workshop, the feature list kept growing — AR overlays, OBD diagnostics, a parts marketplace, cloud storage, social sharing, a community forum. Normal at this stage. Founders picture the three-year product, not the one that earns a first round.</p>
-          <p>My job was to pressure-test every idea against two questions: does it help a user finish their first repair, and does it make Unbolt meaningfully different from a YouTube tutorial? At Hyper, we held the MVP to seven screens. If a feature didn't earn a screen, it wasn't ready.</p>
+          <p>With a long list of potential features, the job was to narrow down what mattered most. I pressure-tested every idea against two questions: <em>does this help a user complete their first repair?</em> And <em>does this make Unbolt meaningfully different?</em></p>
+          <p>At Hyper, we also worked within a deliberate constraint — if a feature didn't earn a screen in the prototype, it wasn't ready. That forced the move from a broad vision to a focused, testable set, and gave us a way to say no without losing the founder's bigger ambitions.</p>
         </div>
       </div>
     </div>
@@ -1657,52 +1703,52 @@ h1, h2, h3, h4, h5 {
       </div>
       <div class="ft-row">
         <span class="ft-feature">Personalised dashboard</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Vehicle overview surfacing OBD-detected issues with error codes, plus a quick-launch into AR-guided repair — the core entry point that helps users understand their car at a glance.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Diagnostic tool integration</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Connects with OBD scanners for real-time diagnostics, interpreting codes and offering actionable recommendations — turning complex vehicle data into something understandable.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Vehicle-specific repair guides</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Bespoke instructions for the detected error, tailored to the exact make, model and year — ensuring guidance is precise and relevant to the user's car.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">AR repair visualisations</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Overlays digital instructions onto the vehicle through the device camera, providing intuitive visual guides and interactive elements for each repair step.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Repair tracking tools</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Detailed task lists with the ability to mark steps complete — helping users organise repair projects and keep automotive work on track.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Cloud data storage</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Premium-tier secure storage for repair history, diagnostics and personalised settings — accessible from any device so important data is always within reach.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Spare parts &amp; consumables recommendations</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Tailored suggestions for parts needed for specific repairs, directing users to trusted suppliers — simplifying sourcing and ensuring compatibility.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Automotive service centre recommendations</span>
-        <span class="ft-decision mvp"><span class="dot"></span>MVP</span>
+        <span class="ft-decision mvp" style="background-color: rgb(204, 224, 255)"><span class="dot"></span>MVP</span>
         <span class="ft-rationale">Recommends professional service centres when a task is too complex or risky for DIY — a reliable fallback so users always have a trusted route forward.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Real-time inventory tracking</span>
-        <span class="ft-decision future"><span class="dot"></span>Future</span>
+        <span class="ft-decision future" style="background-color: rgb(255, 205, 221)"><span class="dot"></span>Future</span>
         <span class="ft-rationale">For professional mechanics — live stock levels and low-stock notifications. Outside the consumer MVP scope but valuable for a later B2B tier.</span>
       </div>
       <div class="ft-row">
         <span class="ft-feature">Team collaboration</span>
-        <span class="ft-decision future"><span class="dot"></span>Future</span>
+        <span class="ft-decision future" style="background-color: rgb(255, 205, 221)"><span class="dot"></span>Future</span>
         <span class="ft-rationale">Task assignment, shared project info and real-time team comms for workshops. Deferred until the consumer experience is validated.</span>
       </div>
       <div class="ft-row">
@@ -1718,7 +1764,7 @@ h1, h2, h3, h4, h5 {
 <section class="cs-section">
   <div class="container">
     <div class="two-col">
-      <div class="label-col"><span class="num">05</span>User flow</div>
+      <div class="label-col"><span class="num">07</span>User flow</div>
       <div>
         <h3 class="heading">Mapping the path from <em>problem to repair.</em></h3>
         <div class="body-lg">
@@ -1734,7 +1780,7 @@ h1, h2, h3, h4, h5 {
       </div>
 
       <div class="card-row flow-row" style="grid-template-columns: repeat(7, 1fr);">
-        <div class="scard scard--dark">
+        <div class="scard scard--dark" style="background-color: rgb(204, 224, 255)">
           <span class="scard-tag">Setup</span>
           <h4 class="scard-title" style="height: 30px">Onboarding</h4>
           <p class="scard-body">Enter VIN, make, model. Connect OBD scanner.</p>
@@ -1746,7 +1792,7 @@ h1, h2, h3, h4, h5 {
           <p class="scard-body">Vehicle overview. Detected error codes. Launch repair.</p>
           <span class="scard-num">02</span>
         </div>
-        <div class="scard scard--dark">
+        <div class="scard scard--dark" style="background-color: rgb(204, 224, 255)">
           <span class="scard-tag">Detail</span>
           <h4 class="scard-title">Selected issue</h4>
           <p class="scard-body">Problem description, required parts, repair preview.</p>
@@ -1758,7 +1804,7 @@ h1, h2, h3, h4, h5 {
           <p class="scard-body">Point camera at vehicle. App finds the component.</p>
           <span class="scard-num">04</span>
         </div>
-        <div class="scard scard--dark">
+        <div class="scard scard--dark" style="background-color: rgb(204, 224, 255)">
           <span class="scard-tag">AR</span>
           <h4 class="scard-title">Highlight</h4>
           <p class="scard-body">Faulty part called out with a visual overlay.</p>
@@ -1770,7 +1816,7 @@ h1, h2, h3, h4, h5 {
           <p class="scard-body">Step-by-step overlay. Mark each step complete.</p>
           <span class="scard-num">06</span>
         </div>
-        <div class="scard scard--dark">
+        <div class="scard scard--dark" style="background-color: rgb(204, 224, 255)">
           <span class="scard-tag">Done</span>
           <h4 class="scard-title">Success</h4>
           <p class="scard-body">Repair confirmed. Verify fix, optional share.</p>
@@ -1786,7 +1832,7 @@ h1, h2, h3, h4, h5 {
 <section class="cs-section alt">
   <div class="container">
     <div class="two-col">
-      <div class="label-col"><span class="num">06</span>Wireframes</div>
+      <div class="label-col"><span class="num">08</span>Wireframes</div>
       <div>
         <h3 class="heading">Designing the structure, <em>not the surface.</em></h3>
         <div class="body-lg">
@@ -1872,7 +1918,7 @@ h1, h2, h3, h4, h5 {
 <section class="cs-section">
   <div class="container">
     <div class="two-col">
-      <div class="label-col"><span class="num">07</span>Outcome</div>
+      <div class="label-col"><span class="num">09</span>Outcome</div>
       <div>
         <h3 class="heading">A prototype the founder could <em>put in front of investors.</em></h3>
         <div class="body-lg">
@@ -1882,20 +1928,20 @@ h1, h2, h3, h4, h5 {
     </div>
 
     <div class="outcome-grid">
-      <div class="proto-frame">
+      <div class="proto-frame" style="background-color: rgb(247, 246, 243)">
         <div class="pf-inner"><iframe src="https://player.vimeo.com/video/1185672560?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;" title="Unbolt_prototype (1)"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
       </div>
       <div class="outcome-stats">
         <div class="outcome-stat">
-          <p class="big">8 <em>→</em> 7</p>
+          <p class="big" style="color: rgb(26, 24, 20)">8 <em>→</em> 7</p>
           <p>8 Features designed in 7 screens that each had to earn their place in the prototype.</p>
         </div>
         <div class="outcome-stat">
-          <p class="big">Used in <em>pitches</em></p>
+          <p class="big" style="color: rgb(26, 24, 20)">Used in <em style="color: rgb(94, 90, 82)">pitches</em></p>
           <p>The prototype was handed off and carried into investor meetings — the measure of success at this stage.</p>
         </div>
         <div class="outcome-stat">
-          <p class="big">1 <em>focused</em>&nbsp; MVP</p>
+          <p class="big" style="color: rgb(26, 24, 20)">1 <em style="color: rgb(94, 90, 82)">focused</em>&nbsp; MVP</p>
           <p>A coherent first version for Omar to validate and build, instead of twenty half-sketched directions.</p>
         </div>
       </div>
@@ -1904,33 +1950,33 @@ h1, h2, h3, h4, h5 {
 </section>
 
 <!-- SECTION 8 — Key Learnings -->
-<section class="cs-section cream">
+<section class="cs-section cream" style="background-color: rgb(255, 77, 141)">
   <div class="container">
     <div class="two-col">
-      <div class="label-col"><span class="num">08</span>Key learnings</div>
+      <div class="label-col" style="color: rgb(255, 255, 255)"><span class="num">10</span>Key learnings</div>
       <div>
-        <h3 class="heading">What I'm taking <em>into the next one.</em></h3>
+        <h3 class="heading" style="color: rgb(255, 255, 255)">What I'm taking <em style="color: rgb(82, 156, 255)">into the next one.</em></h3>
         <div class="body-lg">
-          <p>Looking back, the most valuable thing I contributed wasn't any individual screen. It was the discipline of the scoping process itself — helping a founder with a big idea understand that a focused first version isn't a compromise. It's the thing that makes everything else possible.</p>
+          <p style="color: rgb(255, 255, 255)">Looking back, the most valuable thing I contributed wasn't any individual screen. It was the discipline of the scoping process itself — helping a founder with a big idea understand that a focused first version isn't a compromise. It's the thing that makes everything else possible.</p>
         </div>
       </div>
     </div>
 
     <div class="learn-grid">
-      <article class="learn-card">
+      <article class="learn-card" style="background-color: rgb(255, 255, 255)">
         <span class="learn-num">No. 01</span>
-        <h4>A focused first version is the <em>work</em> — not a compromise.</h4>
+        <h4>A focused first version is the <em style="color: rgb(94, 90, 82)">work</em> — not a compromise.</h4>
         <p>Cutting scope wasn't cutting corners. Naming the one thing the prototype had to prove, and protecting it from everything else, was what made the rest of the design decisions possible.</p>
       </article>
-      <article class="learn-card">
+      <article class="learn-card" style="background-color: rgb(255, 255, 255)">
         <span class="learn-num">No. 02</span>
-        <h4>Process is the deliverable when the path is <em>unclear.</em></h4>
-        <p>The most useful thing I left behind wasn't a screen — it was a repeatable way of asking <em>"what does this version need to prove, and to whom?"</em> that the founder could carry into the next round.</p>
+        <h4 style="color: rgb(26, 24, 20)">Process is the deliverable when the path is <em style="color: rgb(94, 90, 82)">unclear.</em></h4>
+        <p style="color: rgb(26, 24, 20)">The most useful thing I left behind wasn't a screen — it was a repeatable way of asking <em>"what does this version need to prove, and to whom?"</em> that the founder could carry into the next round.</p>
       </article>
-      <article class="learn-card">
+      <article class="learn-card" style="background-color: rgb(253, 253, 253)">
         <span class="learn-num">No. 03</span>
-        <h4>Hierarchy is the brief for the <em>visual team.</em></h4>
-        <p>Spending time on information structure and flow logic up front meant the design team could focus on expression — not untangling what each screen needed to communicate.</p>
+        <h4 style="color: rgb(26, 24, 20)">Hierarchy is the brief for the <em style="color: rgb(94, 90, 82)">visual team.</em></h4>
+        <p style="color: rgb(26, 24, 20)">Spending time on information structure and flow logic up front meant the design team could focus on expression — not untangling what each screen needed to communicate.</p>
       </article>
     </div>
   </div>
@@ -1976,7 +2022,7 @@ h1, h2, h3, h4, h5 {
     </a>
 
     <a class="mw-card mw-forest" href="planty-case-study.html">
-      <div class="mw-visual">
+      <div class="mw-visual" style="background-color: rgb(188, 251, 154)">
         <span class="mw-mark">Planty<em>.</em></span>
       </div>
       <div class="mw-body">
@@ -2286,7 +2332,7 @@ h1, h2, h3, h4, h5 {
 <style>
 /* Keep exploring cards — color matches each destination project's hero */
 .mw-card[href*="unbolt"] .mw-visual { background: #ff4d8d !important; color: #fff !important; }
-.mw-card[href*="planty"] .mw-visual { background: #d4ff3a !important; color: var(--ink) !important; }
+.mw-card[href*="planty"] .mw-visual { background: #bcfb9a !important; color: var(--ink) !important; }
 .mw-card[href*="flight"] .mw-visual { background: #3a8eff !important; color: #fff !important; }
 .mw-card[href*="aviva"]  .mw-visual { background: #ff5236 !important; color: #fff !important; }
 </style>

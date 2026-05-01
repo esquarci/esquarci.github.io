@@ -27,15 +27,15 @@
 
   /* New brand accents */
   --pink: #f08bb0;
-  --acid: #dbe87a;
+  --acid: #e9ff5b;
   --red:  #e85d3e;
   --sky:  #6ea8e8;
 
   /* Legacy accent aliases — re-mapped to new palette so existing rules just work */
   --terracotta:      #ff5236;
   --terracotta-soft: #ffd5cb;
-  --mustard:         #dbe87a;
-  --mustard-soft:    #ecf2b5;
+  --mustard:         #e9ff5b;
+  --mustard-soft:    #f7ffc7;
   --forest:          #ff5236;
   --forest-soft:     #ffd5cb;
   --navy:            #6ea8e8;
@@ -841,7 +841,7 @@ h1, h2, h3, h4, h5 {
     letter-spacing: -0.03em; line-height: 1.02;
     margin: 0 0 28px;
   }
-  .av-twocol h2 em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .av-twocol h2 em { font-style: italic; color: inherit; font-weight: 800; }
   .av-twocol p { font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 1.1em; max-width: 62ch; }
   .av-twocol p strong { color: var(--ink); font-weight: 500; }
 
@@ -867,7 +867,7 @@ h1, h2, h3, h4, h5 {
     font-size: clamp(28px, 3vw, 36px);
     letter-spacing: -0.02em; margin: 0; line-height: 1.1;
   }
-  .upload-card h3 em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .upload-card h3 em { font-style: italic; color: inherit; font-weight: 800; }
   .upload-card p { font-size: 15px; color: var(--ink-soft); margin: 0; max-width: 56ch; line-height: 1.55; }
   .upload-card .hint {
     font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em;
@@ -883,7 +883,7 @@ h1, h2, h3, h4, h5 {
     margin: 18px 0 20px;
     max-width: 18ch;
   }
-  .prio-h2 em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .prio-h2 em { font-style: italic; color: inherit; font-weight: 800; }
   .prio-intro {
     font-size: 17px; line-height: 1.65; color: var(--ink-soft);
     max-width: 62ch; margin: 0 0 56px;
@@ -936,7 +936,7 @@ h1, h2, h3, h4, h5 {
   }
   .moscow-col li strong { color: var(--ink); font-weight: 500; }
 
-  .tier-must { background: color-mix(in oklab, var(--terracotta) 5%, var(--paper)); }
+  .tier-must { background: #e5fcd5; }
   .tier-must .tier-tag { color: var(--terracotta); }
   .tier-must li::before { background: var(--terracotta); }
 
@@ -944,7 +944,7 @@ h1, h2, h3, h4, h5 {
   .tier-should .tier-tag { color: var(--plum); }
   .tier-should li::before { background: var(--plum); }
 
-  .tier-could { background: color-mix(in oklab, var(--forest) 4%, var(--paper)); }
+  .tier-could { background: #e5fcd5; }
   .tier-could .tier-tag { color: var(--forest); }
   .tier-could li::before { background: var(--forest); }
 
@@ -976,7 +976,7 @@ h1, h2, h3, h4, h5 {
     color: var(--ink);
     margin: 0;
   }
-  .audit-row .audit-title em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .audit-row .audit-title em { font-style: italic; color: inherit; font-weight: 800; }
   .audit-shot {
     display: block;
     position: relative;
@@ -1039,7 +1039,7 @@ h1, h2, h3, h4, h5 {
     letter-spacing: -0.02em; line-height: 1.15;
     color: var(--ink);
   }
-  .pair-head .t em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .pair-head .t em { font-style: italic; color: inherit; font-weight: 800; }
   .slide-pair {
     display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
     margin-bottom: 14px;
@@ -1115,15 +1115,15 @@ h1, h2, h3, h4, h5 {
   /* The full deck — filmstrip */
   .deck-section {
     padding: 96px 0 120px;
-    background: #ff5236;
+    background: #ff5235;
     color: var(--paper);
     position: relative;
     overflow: hidden;
   }
   .deck-section::before {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 85% 15%, color-mix(in oklab, var(--mustard) 35%, transparent), transparent 55%);
-    opacity: 0.9; pointer-events: none;
+    background: none;
+    opacity: 0; pointer-events: none;
   }
   .deck-section .container { position: relative; z-index: 1; }
   .deck-section .eye {
@@ -1158,6 +1158,33 @@ h1, h2, h3, h4, h5 {
   .deck-section .filmstrip-meta span b {
     color: var(--mustard); font-weight: 500; font-family: var(--f-display); letter-spacing: -0.01em; font-size: 13px; text-transform: none;
   }
+  .deck-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px;
+  }
+  .deck-head-l { min-width: 0; }
+  .deck-head-l h2 { margin-bottom: 0; }
+  .deck-top {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid color-mix(in oklab, var(--paper) 45%, transparent);
+    border-radius: 999px;
+    color: var(--paper);
+    text-decoration: none;
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .deck-top .arr {
+    font-family: var(--f-display); font-size: 14px; line-height: 1;
+    transform: translateY(-1px);
+    transition: transform 0.25s;
+  }
+  .deck-top:hover {
+    background: var(--mustard); border-color: var(--mustard); color: var(--ink);
+  }
+  .deck-top:hover .arr { transform: translateY(-3px); }
   .filmstrip {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -1262,7 +1289,7 @@ h1, h2, h3, h4, h5 {
     font-size: clamp(40px, 6vw, 88px);
     letter-spacing: -0.035em; line-height: 0.98;
   }
-  .next-proj a em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .next-proj a em { font-style: italic; color: inherit; font-weight: 800; }
   .next-proj .up { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); }
 
   /* User section — typographic goals + pain points */
@@ -1307,7 +1334,7 @@ h1, h2, h3, h4, h5 {
   }
 
   /* More work — project cards */
-  .more-work { margin-top: 120px; padding-top: 48px; border-top: 1px solid var(--rule); margin-bottom: 80px; }
+  .more-work { margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--rule); margin-bottom: 80px; }
   .mw-head { display: flex; align-items: baseline; gap: 24px; margin-bottom: 32px; }
   .mw-eyebrow {
     font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em;
@@ -1319,7 +1346,7 @@ h1, h2, h3, h4, h5 {
     letter-spacing: -0.03em; line-height: 1.02;
     margin: 0; color: var(--ink);
   }
-  .mw-title em { font-family: var(--f-serif); font-weight: 700; font-style: italic; color: var(--ink-soft); letter-spacing: -0.01em; }
+  .mw-title em { font-style: italic; color: inherit; font-weight: 800; }
   .mw-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1405,7 +1432,7 @@ h1, h2, h3, h4, h5 {
 
 <nav class="nav">
   <div class="container nav-inner">
-    <a href="index.html" class="nav-brand"><span class="dot"></span>Elisabetta Squarci</a>
+    <a href="index.html" class="nav-brand" style="color: rgb(26, 24, 20)"><span class="dot"></span>Elisabetta Squarci</a>
     <div class="nav-links">
       <a href="index.html" class="active">Work</a>
       <a href="about.html">About</a>
@@ -1417,7 +1444,7 @@ h1, h2, h3, h4, h5 {
 <section class="av-hero">
   <div class="container">
     <span class="cs-eye">Case study · 04 / 04</span>
-    <h1 class="reveal">Aviva — a <em>UX audit</em> of the careers benefits page.</h1>
+    <h1 class="reveal">Aviva — a <em style="color: rgb(188, 251, 154)">UX audit</em> of the careers benefits page.</h1>
 
     <div class="av-meta reveal" style="--reveal-delay: 0.1s;">
       <div>
@@ -1448,9 +1475,30 @@ h1, h2, h3, h4, h5 {
       <h2>An interview task: <em>audit</em> Aviva's benefits page and propose improvements.</h2>
       <p>Before joining Aviva as a Junior Product Owner, I prepared a presentation for the final interview stage. The task was open — pick a page on Aviva's digital estate, analyse it through a product lens, and come back with a prioritised set of changes.</p>
       <p>I chose the <strong>"Our Benefits"</strong> page on the careers site. It's directly linked from every job posting, so it sits at a high-leverage moment in the recruitment funnel — a candidate deciding whether Aviva is worth applying to. If it's confusing or broken, that's a conversion problem dressed up as a content problem.</p>
+      <a href="#appendix" class="brief-cta">
+        Jump to the full presentation
+        <span class="arr">↓</span>
+      </a>
     </div>
   </div>
 </section>
+
+<style>
+.brief-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 32px;
+  padding: 14px 22px;
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--ink); color: var(--paper);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.brief-cta:hover { background: #ff5236; transform: translateY(-1px); }
+.brief-cta .arr { transition: transform 0.2s; }
+.brief-cta:hover .arr { transform: translateX(4px); }
+</style>
 
 <!-- 02 The user -->
 <section class="av-section alt">
@@ -1484,11 +1532,11 @@ h1, h2, h3, h4, h5 {
             <span class="ub-kicker">Key pain points</span>
             <h3>Where the page gets in their way.</h3>
           </div>
-          <ul class="ub-list ub-pains">
-            <li><span class="ub-dot"></span><div><strong>Information overload.</strong> Dense copy and weak hierarchy &mdash; the actual benefits get buried.</div></li>
-            <li><span class="ub-dot"></span><div><strong>Navigation challenges.</strong> Layout doesn’t guide the eye; candidates don’t know what to read first.</div></li>
-            <li><span class="ub-dot"></span><div><strong>Usability &amp; technical issues.</strong> Broken links, a calculator that doesn’t calculate, info icons that don’t open.</div></li>
-          </ul>
+          <ol class="ub-list ub-pains">
+            <li><span class="ub-n">01</span><div><strong>Information overload.</strong> Dense copy and weak hierarchy &mdash; the actual benefits get buried.</div></li>
+            <li><span class="ub-n">02</span><div><strong>Navigation challenges.</strong> Layout doesn&rsquo;t guide the eye; candidates don&rsquo;t know what to read first.</div></li>
+            <li><span class="ub-n">03</span><div><strong>Usability &amp; technical issues.</strong> Broken links, a calculator that doesn&rsquo;t calculate, info icons that don&rsquo;t open.</div></li>
+          </ol>
         </div>
       </div>
     </div>
@@ -1688,12 +1736,12 @@ h1, h2, h3, h4, h5 {
 <!-- 04 Prioritisation -->
 <section class="av-section alt">
   <div class="container reveal">
-    <span class="num">04 — Prioritisation</span>
+    <span class="num" style="color: rgb(255, 82, 54)">04 — Prioritisation</span>
     <h2 class="prio-h2">Not everything at once &mdash; a <em>MoSCoW</em> shortlist.</h2>
     <p class="prio-intro">A long list of fixes isn&rsquo;t a plan. I grouped the recommendations into must, should, and could &mdash; so the team could see a clear order of operations and the case for each tier stood on its own.</p>
 
     <div class="moscow">
-      <article class="moscow-col tier-must">
+      <article class="moscow-col tier-must" style="background-color: rgb(255, 255, 255)">
         <header>
           <span class="tier-tag">Must</span>
           <h3>Fix what&rsquo;s broken first.</h3>
@@ -1723,7 +1771,7 @@ h1, h2, h3, h4, h5 {
         </ul>
       </article>
 
-      <article class="moscow-col tier-could">
+      <article class="moscow-col tier-could" style="background-color: rgb(255, 255, 255)">
         <header>
           <span class="tier-tag">Could</span>
           <h3>Raise the ceiling.</h3>
@@ -1754,16 +1802,24 @@ h1, h2, h3, h4, h5 {
 </section>
 
 <!-- The full deck -->
-<section class="deck-section reveal">
+<section class="deck-section reveal" id="appendix">
   <div class="container">
-    <span class="eye">Appendix · The deck I presented</span>
-    <h2>Every slide, <em>in order.</em></h2>
+    <div class="deck-head">
+      <div class="deck-head-l">
+        <span class="eye">Appendix · The deck I presented</span>
+        <h2>Every slide, <em style="color: rgb(188, 251, 154)">in order.</em></h2>
+      </div>
+      <a href="#top" class="deck-top" aria-label="Back to top">
+        <span class="arr">↑</span>
+        <span>Back to top</span>
+      </a>
+    </div>
     <p class="lede">The full 28-slide working deck as I sent it for the final interview — intro, user, audit, prioritisation, conclusion. Click any thumbnail to open it; use ← / → to flip through.</p>
     <div class="filmstrip-meta">
-      <span>Slides <b>28</b></span>
-      <span>Sections <b>6</b></span>
-      <span>Format <b>Figma Slides</b></span>
-      <span>Presented <b>Nov 2024</b></span>
+      <span>Slides <b style="color: rgb(188, 251, 154)">28</b></span>
+      <span>Sections <b style="color: rgb(188, 251, 154)">6</b></span>
+      <span>Format <b style="color: rgb(188, 251, 154)">Figma Slides</b></span>
+      <span>Presented <b style="color: rgb(188, 251, 154)">Nov 2024</b></span>
     </div>
     <div class="filmstrip" id="filmstrip"></div>
   </div>
@@ -1996,7 +2052,7 @@ h1, h2, h3, h4, h5 {
 <style>
 /* Keep exploring cards — color matches each destination project's hero */
 .mw-card[href*="unbolt"] .mw-visual { background: #ff4d8d !important; color: #fff !important; }
-.mw-card[href*="planty"] .mw-visual { background: #d4ff3a !important; color: var(--ink) !important; }
+.mw-card[href*="planty"] .mw-visual { background: #bcfb9a !important; color: var(--ink) !important; }
 .mw-card[href*="flight"] .mw-visual { background: #3a8eff !important; color: #fff !important; }
 .mw-card[href*="aviva"]  .mw-visual { background: #ff5236 !important; color: #fff !important; }
 </style>
