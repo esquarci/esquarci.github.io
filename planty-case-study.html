@@ -8,7 +8,7 @@
 /* Elisabetta Squarci — portfolio styles v3
    Warm editorial + bold geometric. Closer to Yan's energy.
    Palette: cream paper + terracotta / mustard / forest / deep navy accents.
-   Display: Space Grotesk (bold geometric). Body: Inter Tight. Mono: JetBrains Mono.
+   Display: Space Grotesk (bold geometric). Body: Inter Tight. Mono: Inter Tight.
    Italic serif accent: Fraunces (used sparingly for emphasis only). */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -58,7 +58,7 @@
   --f-display: 'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif;
   --f-serif:   'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif;
   --f-body:    'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --f-mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --f-mono:    'Inter Tight', 'SF Mono', Menlo, monospace;
 }
 
 /* -------- Reset / base -------- */
@@ -108,7 +108,7 @@ img { display: block; max-width: 100%; }
 .nav-brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); }
 .nav-brand em {
   font-family: var(--f-serif);
-  font-style: italic; font-weight: 400;
+  font-style: italic; font-weight: 800;
   color: var(--ink-soft); font-size: 16px;
 }
 .nav-links { display: flex; gap: 32px; align-items: center; }
@@ -334,7 +334,7 @@ h1, h2, h3, h4, h5 {
 }
 .big-mark em {
   font-family: var(--f-serif);
-  font-weight: 400; font-style: italic;
+  font-weight: 800; font-style: italic;
   opacity: 0.85;
 }
 
@@ -410,7 +410,7 @@ h1, h2, h3, h4, h5 {
   color: var(--ink-mute); text-transform: uppercase;
 }
 .svc h4 {
-  font-family: var(--f-display); font-weight: 900; font-size: 28px;
+  font-family: var(--f-display); font-weight: 800; font-size: 28px;
   letter-spacing: -0.025em; line-height: 1.05; margin: 0;
 }
 .svc h4 em {
@@ -442,7 +442,7 @@ h1, h2, h3, h4, h5 {
 @media (max-width: 720px) { .quote-card { grid-template-columns: 1fr; gap: 12px; } }
 .quote-card .qmark {
   font-family: var(--f-serif);
-  font-style: italic; font-weight: 500;
+  font-style: italic; font-weight: 800;
   font-size: 128px; line-height: 0.6;
   color: var(--ink);
 }
@@ -473,7 +473,7 @@ h1, h2, h3, h4, h5 {
   border-bottom: 1px solid var(--ink);
 }
 .logos .logo-item {
-  font-family: var(--f-display); font-weight: 900;
+  font-family: var(--f-display); font-weight: 800;
   font-size: 22px; letter-spacing: -0.02em;
   color: var(--ink);
   position: relative;
@@ -693,7 +693,7 @@ h1, h2, h3, h4, h5 {
 }
 .intro-inner em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
+  font-weight: 800; font-style: italic;
   color: var(--terracotta);
 }
 .intro-inner .row {
@@ -843,7 +843,7 @@ h1, h2, h3, h4, h5 {
     overflow: hidden;
   }
   .cs-hero, .cs-hero h1, .cs-hero h2, .cs-hero p, .cs-hero a, .cs-hero span, .cs-hero em, .cs-hero .m-v, .cs-hero .m-k { color: var(--ink) !important; }
-  .cs-hero h1 em { color: #3a8eff !important; background: transparent !important; padding: 0; border-radius: 0; font-style: italic; }
+  .cs-hero h1 em { font-family: var(--f-serif); color: #3a8eff !important; background: transparent !important; padding: 0; border-radius: 0; font-style: italic; }
   .cs-hero .eyebrow, .cs-hero .meta, .cs-hero small, .cs-hero .cs-eye, .cs-hero .m-k { color: rgba(26,24,20,0.7) !important; }
   .cs-hero .planty-brand { display: none !important; }
   .cs-hero::before { display: none; }
@@ -861,7 +861,7 @@ h1, h2, h3, h4, h5 {
     color: var(--paper);
   }
   .cs-hero h1 em {
-    font-family: var(--f-serif); font-weight: 700; font-style: italic;
+    font-family: var(--f-serif); font-weight: 800; font-style: italic;
     color: var(--mustard);
     letter-spacing: -0.01em;
   }
@@ -884,22 +884,23 @@ h1, h2, h3, h4, h5 {
   .cs-section.cream { background: var(--terracotta-soft); }
 
   .cs-twocol {
-    display: grid; grid-template-columns: 200px 1fr; gap: 48px;
-    align-items: baseline;
+    display: grid; grid-template-columns: 180px 1fr; gap: 40px;
+    align-items: start;
   }
   @media (max-width: 900px) { .cs-twocol { grid-template-columns: 1fr; gap: 16px; } }
   .cs-twocol .num {
     font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--terracotta); font-weight: 500;
+    padding-top: 12px;
   }
   .cs-twocol h2 {
     font-family: var(--f-display); font-weight: 900;
-    font-size: clamp(36px, 5vw, 64px);
+    font-size: 53px;
     letter-spacing: -0.03em; line-height: 1.02;
     margin: 0 0 28px;
   }
   .cs-twocol h2 em { font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit; letter-spacing: -0.01em; }
-  .cs-twocol p { font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 1.1em; max-width: 62ch; }
+  .cs-twocol p { font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 1.1em; }
   .cs-twocol p strong { color: var(--ink); font-weight: 500; }
 
   /* Pull-stat */
@@ -1041,7 +1042,7 @@ h1, h2, h3, h4, h5 {
     display: flex; flex-direction: column; gap: 14px;
   }
   .focus .fn { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--terracotta); text-transform: uppercase; font-weight: 500; }
-  .focus h4 { font-family: var(--f-display); font-weight: 900; font-size: 22px; letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
+  .focus h4 { font-family: var(--f-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
   .focus h4 em { font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit; }
   .focus p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
 
@@ -1060,7 +1061,7 @@ h1, h2, h3, h4, h5 {
     margin: 0 0 20px; max-width: 22ch;
   }
   .outcome-band h3 em { font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit; letter-spacing: -0.01em; }
-  .outcome-band p { max-width: 60ch; font-size: 16px; color: var(--ink); line-height: 1.55; margin: 0; }
+  .outcome-band p { max-width: none; font-size: 16px; color: var(--ink); line-height: 1.55; margin: 0; }
 
   /* Next project */
   .next-proj {
@@ -1128,7 +1129,6 @@ h1, h2, h3, h4, h5 {
   .mw-mus .mw-visual { background: var(--mustard); color: var(--ink); }
   .mw-body {
     padding: 24px 28px 28px;
-    border-top: 1px solid var(--ink);
     background: var(--paper);
     display: flex; flex-direction: column; gap: 14px;
    flex: 1 1 auto;}
@@ -1140,15 +1140,15 @@ h1, h2, h3, h4, h5 {
     border-radius: 999px;
   }
   .mw-h3 {
-    font-family: var(--f-display); font-weight: 900;
-    font-size: clamp(22px, 2.4vw, 28px);
+    font-family: var(--f-display); font-weight: 800;
+    font-size: 22px;
     letter-spacing: -0.025em; line-height: 1.1;
     color: var(--ink); margin: 0;
   }
   .mw-meta {
     margin: 4px 0 0; padding: 0;
     display: flex; flex-direction: column; gap: 4px;
-    font-family: var(--f-mono); font-size: 11.5px;
+    font-family: var(--f-mono); font-size: clamp(22px, 2.4vw, 28px);
     letter-spacing: 0.05em; color: var(--ink-mute);
     text-transform: uppercase;
   }
@@ -1158,11 +1158,13 @@ h1, h2, h3, h4, h5 {
   .mw-cta {
     align-self: flex-start;
     display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--f-display); font-weight: 900; font-size: 14px;
+    font-family: var(--f-mono); font-size: 11.5px;
+    letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--ink);
-    padding: 12px 20px;
-     border-radius: 999px;
-    margin-top: 6px;
+    padding: 10px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
     transition: background 0.2s, color 0.2s;
   }
   .mw-card:hover .mw-cta { background: var(--ink); color: var(--paper); }
@@ -1198,7 +1200,7 @@ h1, h2, h3, h4, h5 {
 <path d="M98.9309 4.40956V0L91.0689 1.1574V4.41772H84.1601L84.429 4.71119C85.6657 6.23415 86.4354 8.08267 86.645 10.0336H91.0689V23.1972H98.9309V10.0255H105.799V4.40956H98.9309Z" fill="#66348B"></path>
 <path d="M52.4514 4.40145H60.3134V23.1972H52.4514V19.024C51.1641 22.2354 48.5245 23.8411 44.7035 23.8411C39.1471 23.8411 35.5868 19.6353 35.5868 13.7504C35.5868 7.86552 39.2123 3.5619 44.8664 3.5619C48.7526 3.5619 51.1641 5.19206 52.4514 8.45238V4.40145ZM52.4514 13.62C52.4514 11.24 50.822 9.5446 48.0845 9.5446C45.3471 9.5446 43.7176 11.1748 43.7176 13.62C43.7176 16.0652 45.4204 17.7687 48.0519 17.7687C50.6835 17.7687 52.4514 16 52.4514 13.5548" fill="#66348B"></path>
 </svg></div>
-    <h1 class="reveal">Planty — <em>rebranding</em> a subscription service for growth.</h1>
+    <h1 class="reveal">Planty — <em>rebranding a subscription service</em> for growth.</h1>
 
     <div class="cs-meta reveal" style="--reveal-delay: 0.1s;">
       <div>
@@ -1226,10 +1228,15 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">01 — Context</span>
     <div>
-      <h2>A small e-commerce subscription <em>outgrowing</em> <br>its own website.</h2>
+      <h2>A small e-commerce subscription outgrowing
+its own website.</h2>
       <p>Planty is a UK-based subscription service delivering bespoke vegan food. I joined in 2021 and grew with the business — starting in marketing &amp; operations, then product, and stepping into an interim CMO role for a year during a leadership gap.</p>
       <p>By mid-2022 the brand was <strong>stretched thin</strong>. The site we'd launched with couldn't keep up: customers were bouncing off a subscription flow that asked too much too early; the visual identity no longer matched where the product had landed; and retention was leaking through avoidable friction.</p>
       <p>The CEO and I co-led a full rebrand and website relaunch — my role spanned product direction, UX, content, and the commercial framing that tied it all together.</p>
+      <a href="#results" class="brief-cta">
+        Jump to the results
+        <span class="arr">↓</span>
+      </a>
     </div>
   </div>
 </section>
@@ -1258,17 +1265,17 @@ buying it.</h2>
       <div class="focus-grid">
         <div class="focus">
           <span class="fn">Issue 01</span>
-          <h4>An <em>overloaded</em> landing experience.</h4>
+          <h4>An overloaded landing experience.</h4>
           <p>Visitors had to parse too much before they could understand what Planty actually was — and what made it different from any other vegan box.</p>
         </div>
         <div class="focus">
           <span class="fn">Issue 02</span>
-          <h4>Subscription controls <em>hidden</em> in the account.</h4>
+          <h4>Subscription controls hidden in the account.</h4>
           <p>The "skip a week" action, a high-frequency need, was buried inside the account area — causing unnecessary cancellations from people who just needed a pause.</p>
         </div>
         <div class="focus">
           <span class="fn">Issue 03</span>
-          <h4>Brand identity behind the <em>product</em>.</h4>
+          <h4>Brand identity behind the product.</h4>
           <p>The visual system hadn't evolved alongside new product ranges and partnerships. It looked like an early-stage startup; the offering had grown past that.</p>
         </div>
       </div>
@@ -1281,28 +1288,10 @@ buying it.</h2>
   <div class="container cs-twocol reveal">
     <span class="num">03 — Approach</span>
     <div>
-      <h2>Rebrand and relaunch as <em>
-one project,</em> not two.</h2>
+      <h2>Rebrand and relaunch as 
+one project, not two.</h2>
       <p>We ran the brand and product work in parallel so every visual decision had a UX consequence and vice versa. I led the UX side — user journeys, content strategy, subscription flow — while coordinating closely with the CEO on brand and with a freelance designer on visual identity.</p>
       <p>Because the team was small, the process was deliberately compact: weekly working sessions, a prioritised backlog in Notion, and a shared principle we kept coming back to — <strong>make the right action the easiest action.</strong></p>
-
-      <div class="pull-stat">
-        <div class="ps">
-          <span class="big">+30%</span>
-          <span class="cap">Retention uplift</span>
-          <p>After launching the custom skip system and optimised email flows.</p>
-        </div>
-        <div class="ps">
-          <span class="big ter" style="color: rgb(58, 142, 255)">2×</span>
-          <span class="cap">Acquisition doubled</span>
-          <p>Clearer landing + improved sign-up flow post-relaunch.</p>
-        </div>
-        <div class="ps">
-          <span class="big">+52%</span>
-          <span class="cap">Partnership channel growth</span>
-          <p>Product launches &amp; strategic industry partnerships together.</p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1312,23 +1301,23 @@ one project,</em> not two.</h2>
   <div class="container cs-twocol reveal">
     <span class="num">04 — Key moves</span>
     <div>
-      <h2>Where the <em>product</em> changed most.</h2>
+      <h2>Where the product changed most.</h2>
       <p>Three moves did the heaviest lifting:</p>
 
       <div class="focus-grid">
         <div class="focus">
           <span class="fn">Move 01</span>
-          <h4>Subscription <em>skip system</em></h4>
+          <h4 style="font-weight: 800">Subscription skip system</h4>
           <p>A dedicated flow for pausing a delivery — surfaced in email, on the homepage for logged-in users, and in one tap from the account dashboard. Direct effect on churn.</p>
         </div>
         <div class="focus">
           <span class="fn">Move 02</span>
-          <h4>A <em>cleaner</em> landing experience</h4>
+          <h4>A cleaner landing experience</h4>
           <p>Simplified hero, clearer value proposition, social proof moved up, and a sign-up flow that asked for the minimum before showing the menu.</p>
         </div>
         <div class="focus">
           <span class="fn">Move 03</span>
-          <h4>Email flows <em>that add up</em></h4>
+          <h4>Email flows that add up</h4>
           <p>Lifecycle emails retooled around specific moments — first box, mid-subscription, at-risk, win-back — replacing a one-size-fits-all newsletter.</p>
         </div>
       </div>
@@ -1355,17 +1344,51 @@ one project,</em> not two.</h2>
 </section>
 
 <!-- 05 Outcome -->
-<section class="cs-section">
+<style>
+.brief-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 32px;
+  padding: 14px 22px;
+  font-family: var(--f-mono); font-size: 14px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--ink); color: var(--paper);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.brief-cta:hover { background: #bcfb9a; color: var(--ink); transform: translateY(-1px); }
+.brief-cta .arr { transition: transform 0.2s; }
+.brief-cta:hover .arr { transform: translateY(4px); }
+</style>
+<section class="cs-section" id="results">
   <div class="container cs-twocol reveal">
     <span class="num">05 — Outcome</span>
     <div>
-      <h2>A product that <em>finally</em> felt like itself.</h2>
+      <h2>A product that finally felt like itself.</h2>
       <p>After launch, the numbers moved — retention up 30%, acquisition doubled, partnership channels growing 52%. But the more telling signal came from customer service: the volume of subscription-related complaints dropped dramatically, because people could now do the thing they wanted to do without contacting us.</p>
       <p>What I take from this project: <strong>rebrands are product decisions.</strong> The moment you change how something looks, you also change what it feels like to use — and if the product experience hasn't caught up, the new visual layer just makes the friction more visible.</p>
 
+      <div class="pull-stat">
+        <div class="ps">
+          <span class="big">+30%</span>
+          <span class="cap">Retention uplift</span>
+          <p>After launching the custom skip system and optimised email flows.</p>
+        </div>
+        <div class="ps">
+          <span class="big ter" style="color: rgb(58, 142, 255)">2×</span>
+          <span class="cap">Acquisition doubled</span>
+          <p>Clearer landing + improved sign-up flow post-relaunch.</p>
+        </div>
+        <div class="ps">
+          <span class="big">+52%</span>
+          <span class="cap">Partnership channel growth</span>
+          <p>Product launches &amp; strategic industry partnerships together.</p>
+        </div>
+      </div>
+
       <div class="outcome-band" style="background-color: rgb(229, 252, 213)">
-        <h3>The rebrand only worked because the UX was <em>fixed</em> alongside it.</h3>
-        <p>Launching new visuals on top of the old friction would have been louder, not better. Every brand decision had to earn its place in the user's flow.</p>
+        <h3 style="font-size: 40px">The rebrand only worked because the UX was fixed alongside it.</h3>
+        <p style="font-size: 17px">Launching new visuals on top of the old friction would have been louder, not better. Every brand decision had to earn its place in the user's flow.</p>
       </div>
     </div>
   </div>
@@ -1375,36 +1398,36 @@ one project,</em> not two.</h2>
 <section class="container more-work reveal">
   <div class="mw-head">
     <span class="mw-eyebrow">More work</span>
-    <h2 class="mw-title">Keep <em>exploring.</em></h2>
+    <h2 class="mw-title">Keep exploring.</h2>
   </div>
   <div class="mw-grid">
-    <a class="mw-card mw-mus" href="flight-case-study.html">
+    <a class="mw-card mw-navy" href="unbolt-case-study.html">
       <div class="mw-visual">
-        <span class="mw-mark">Skyline<em>.</em></span>
+        <span class="mw-mark">Unbolt.</span>
       </div>
       <div class="mw-body">
-        <span class="mw-tag">Case study · WIP</span>
-        <h3 class="mw-h3">Designing a booking experience for a fictional airline.</h3>
-        <dl class="mw-meta">
-          <div><dt>Role</dt><dd>End-to-end UX</dd></div>
-          <div><dt>Stage</dt><dd>Research complete</dd></div>
-          <div><dt>Year</dt><dd>2026</dd></div>
+        <span class="mw-tag" style="font-size: 12px">Case study</span>
+        <h3 class="mw-h3" style="font-size: 28px">An AR repair companion for DIY mechanics.</h3>
+        <dl class="mw-meta" style="font-size: 12px">
+          <div><dt>Role</dt><dd>Product designer</dd></div>
+          <div><dt>Sector</dt><dd>Consumer · AR</dd></div>
+          <div><dt>Year</dt><dd>2024</dd></div>
         </dl>
         <span class="mw-cta">Read case study <span class="arr">→</span></span>
       </div>
     </a>
 
-    <a class="mw-card mw-navy" href="unbolt-case-study.html">
+    <a class="mw-card mw-mus" href="flight-case-study.html">
       <div class="mw-visual">
-        <span class="mw-mark">Unbolt<em>.</em></span>
+        <span class="mw-mark">Skyline.</span>
       </div>
       <div class="mw-body">
-        <span class="mw-tag">Case study</span>
-        <h3 class="mw-h3">An AR repair companion for DIY mechanics.</h3>
-        <dl class="mw-meta">
-          <div><dt>Role</dt><dd>Product designer</dd></div>
-          <div><dt>Sector</dt><dd>Consumer · AR</dd></div>
-          <div><dt>Year</dt><dd>2024</dd></div>
+        <span class="mw-tag" style="font-size: 12px">Case study · WIP</span>
+        <h3 class="mw-h3" style="font-size: 28px">Designing a booking experience for a fictional airline.</h3>
+        <dl class="mw-meta" style="font-size: 12px">
+          <div><dt>Role</dt><dd>End-to-end UX</dd></div>
+          <div><dt>Stage</dt><dd>Research complete</dd></div>
+          <div><dt>Year</dt><dd>2026</dd></div>
         </dl>
         <span class="mw-cta">Read case study <span class="arr">→</span></span>
       </div>
@@ -1469,6 +1492,43 @@ one project,</em> not two.</h2>
 .mw-card[href*="planty"] .mw-visual { background: #bcfb9a !important; color: var(--ink) !important; }
 .mw-card[href*="flight"] .mw-visual { background: #3a8eff !important; color: #fff !important; }
 .mw-card[href*="aviva"]  .mw-visual { background: #ff5236 !important; color: #fff !important; }
+
+/* Normalized 22px italics → Cabinet Grotesk italic */
+.logos .logo-item em,
+.focus h4 em,
+.mw-h3 em {
+  font-family: 'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+}
+
+/* === Unified 22px text style — single source of truth === */
+[style*="font-size: 22px"],
+[style*="font-size:22px"],
+.ts-22 {
+  font-weight: 800 !important;
+}
+[style*="font-size: 22px"] em,
+[style*="font-size:22px"] em,
+.ts-22 em {
+  font-family: 'Cabinet Grotesk', 'Inter Tight', sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+}
+
+/* === Unified 28px text style — single source of truth === */
+[style*="font-size: 28px"],
+[style*="font-size:28px"],
+.ts-28 {
+  font-weight: 800 !important;
+}
+[style*="font-size: 28px"] em,
+[style*="font-size:28px"] em,
+.ts-28 em {
+  font-family: 'Cabinet Grotesk', 'Inter Tight', sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+}
 </style>
 </body>
 </html>

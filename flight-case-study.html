@@ -8,7 +8,7 @@
 /* Elisabetta Squarci — portfolio styles v3
    Warm editorial + bold geometric. Closer to Yan's energy.
    Palette: cream paper + terracotta / mustard / forest / deep navy accents.
-   Display: Space Grotesk (bold geometric). Body: Inter Tight. Mono: JetBrains Mono.
+   Display: Space Grotesk (bold geometric). Body: Inter Tight. Mono: Inter Tight.
    Italic serif accent: Fraunces (used sparingly for emphasis only). */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -58,7 +58,7 @@
   --f-display: 'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif;
   --f-serif:   'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif;
   --f-body:    'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --f-mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --f-mono:    'Inter Tight', 'SF Mono', Menlo, monospace;
 }
 
 /* -------- Reset / base -------- */
@@ -108,7 +108,7 @@ img { display: block; max-width: 100%; }
 .nav-brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); }
 .nav-brand em {
   font-family: var(--f-serif);
-  font-style: italic; font-weight: 400;
+  font-style: italic; font-weight: 800;
   color: var(--ink-soft); font-size: 16px;
 }
 .nav-links { display: flex; gap: 32px; align-items: center; }
@@ -334,7 +334,7 @@ h1, h2, h3, h4, h5 {
 }
 .big-mark em {
   font-family: var(--f-serif);
-  font-weight: 400; font-style: italic;
+  font-weight: 800; font-style: italic;
   opacity: 0.85;
 }
 
@@ -410,7 +410,7 @@ h1, h2, h3, h4, h5 {
   color: var(--ink-mute); text-transform: uppercase;
 }
 .svc h4 {
-  font-family: var(--f-display); font-weight: 900; font-size: 28px;
+  font-family: var(--f-display); font-weight: 800; font-size: 28px;
   letter-spacing: -0.025em; line-height: 1.05; margin: 0;
 }
 .svc h4 em {
@@ -442,7 +442,7 @@ h1, h2, h3, h4, h5 {
 @media (max-width: 720px) { .quote-card { grid-template-columns: 1fr; gap: 12px; } }
 .quote-card .qmark {
   font-family: var(--f-serif);
-  font-style: italic; font-weight: 500;
+  font-style: italic; font-weight: 800;
   font-size: 128px; line-height: 0.6;
   color: var(--ink);
 }
@@ -473,7 +473,7 @@ h1, h2, h3, h4, h5 {
   border-bottom: 1px solid var(--ink);
 }
 .logos .logo-item {
-  font-family: var(--f-display); font-weight: 900;
+  font-family: var(--f-display); font-weight: 800;
   font-size: 22px; letter-spacing: -0.02em;
   color: var(--ink);
   position: relative;
@@ -693,7 +693,7 @@ h1, h2, h3, h4, h5 {
 }
 .intro-inner em {
   font-family: var(--f-serif);
-  font-weight: 700; font-style: italic;
+  font-weight: 800; font-style: italic;
   color: var(--terracotta);
 }
 .intro-inner .row {
@@ -867,7 +867,7 @@ h1, h2, h3, h4, h5 {
     color: var(--paper);
   }
   .cs-hero h1 em {
-    font-family: var(--f-serif); font-weight: 700; font-style: italic;
+    font-family: var(--f-serif); font-weight: 800; font-style: italic;
     color: #e9ff5b;
     letter-spacing: -0.01em;
   }
@@ -910,22 +910,23 @@ h1, h2, h3, h4, h5 {
   .cs-section.cream { background: var(--mustard-soft); }
 
   .cs-twocol {
-    display: grid; grid-template-columns: 200px 1fr; gap: 48px;
-    align-items: baseline;
+    display: grid; grid-template-columns: 180px 1fr; gap: 40px;
+    align-items: start;
   }
   @media (max-width: 900px) { .cs-twocol { grid-template-columns: 1fr; gap: 16px; } }
   .cs-twocol .num {
     font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--terracotta); font-weight: 500;
+    padding-top: 12px;
   }
   .cs-twocol h2 {
     font-family: var(--f-display); font-weight: 900;
-    font-size: clamp(36px, 5vw, 64px);
+    font-size: 53px;
     letter-spacing: -0.03em; line-height: 1.02;
     margin: 0 0 28px;
   }
   .cs-twocol h2 em { font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit; letter-spacing: -0.01em; }
-  .cs-twocol p { font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 1.1em; max-width: 62ch; }
+  .cs-twocol p { font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 1.1em; }
   .cs-twocol p strong { color: var(--ink); font-weight: 500; }
 
   /* Focus cards */
@@ -942,7 +943,7 @@ h1, h2, h3, h4, h5 {
     display: flex; flex-direction: column; gap: 14px;
   }
   .focus .fn { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--terracotta); text-transform: uppercase; font-weight: 500; }
-  .focus h4 { font-family: var(--f-display); font-weight: 900; font-size: 22px; letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
+  .focus h4 { font-family: var(--f-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
   .focus h4 em { font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit; }
   .focus p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
 
@@ -1004,23 +1005,25 @@ h1, h2, h3, h4, h5 {
     letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute);
   }
   .research-tile .rt-caption strong {
-    font-family: var(--f-display); font-weight: 900;
+    font-family: var(--f-display); font-weight: 800;
     font-size: 17px; letter-spacing: -0.01em; color: var(--ink);
     display: block; margin-top: 2px;
   }
   .research-tile .rt-caption strong em {
-    font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit;
+    font-family: var(--f-serif); font-weight: 700; font-style: italic; color: inherit;
   }
   .research-tile .rt-go {
     font-family: var(--f-mono); font-size: 11px;
     letter-spacing: 0.08em; text-transform: uppercase;
     padding: 8px 14px;
-    
+    border: 1px solid var(--ink);
     border-radius: 999px;
     color: var(--ink);
     flex: 0 0 auto;
     white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
   }
+  .research-tile .rt-go:hover,
   .research-tile:hover .rt-go { background: var(--ink); color: var(--paper); }
 
   /* Video embeds */
@@ -1083,6 +1086,9 @@ h1, h2, h3, h4, h5 {
     justify-self: end;
     white-space: nowrap;
   }
+  .finding-item .fi-tag.sev-high { background: #fbe1ec; color: #b03d68; }
+  .finding-item .fi-tag.sev-med  { background: #fbdfd2; color: #b34528; }
+  .finding-item .fi-tag.sev-pos  { background: #e5fcd5; color: #3f7a1d; }
   @media (max-width: 820px) { .finding-item .fi-tag { justify-self: start; } }
 
   /* HMW cards */
@@ -1177,7 +1183,7 @@ h1, h2, h3, h4, h5 {
     margin: 0 0 16px; max-width: 28ch;
   }
   .outcome-band h3 em { font-family: var(--f-serif); font-weight: 800; font-style: italic; color: inherit; }
-  .outcome-band p { max-width: 60ch; font-size: 16px; color: var(--ink); line-height: 1.55; margin: 0; }
+  .outcome-band p { max-width: none; font-size: 16px; color: var(--ink); line-height: 1.55; margin: 0; }
 
   /* More work */
   .more-work { margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--rule); margin-bottom: 80px; }
@@ -1203,14 +1209,25 @@ h1, h2, h3, h4, h5 {
   .mw-forest .mw-visual { background: var(--forest); color: oklch(0.96 0.02 155); }
   .mw-navy .mw-visual { background: var(--navy); color: oklch(0.96 0.02 255); }
   .mw-plum .mw-visual { background: var(--plum); color: oklch(0.96 0.02 330); }
-  .mw-body { padding: 24px 28px 28px; border-top: 1px solid var(--ink); background: var(--paper); display: flex; flex-direction: column; gap: 14px;  flex: 1 1 auto;}
+  .mw-body { padding: 24px 28px 28px; background: var(--paper); display: flex; flex-direction: column; gap: 14px;  flex: 1 1 auto;}
   .mw-tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--ink-mute); align-self: flex-start; padding: 4px 10px; ); border-radius: 999px; }
   .mw-h3 { font-family: var(--f-display); font-weight: 900; font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin: 0; }
   .mw-meta { margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.05em; color: var(--ink-mute); text-transform: uppercase; }
   .mw-meta > div { display: flex; gap: 10px; }
   .mw-meta dt { min-width: 64px; color: var(--ink); font-weight: 500; margin: 0; }
   .mw-meta dd { margin: 0; }
-  .mw-cta { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 900; font-size: 14px; color: var(--ink); padding: 12px 20px;  border-radius: 999px; margin-top: 6px; transition: background 0.2s, color 0.2s; }
+  .mw-cta {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--f-mono); font-size: 14px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink);
+    padding: 10px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    transition: background 0.2s, color 0.2s;
+  }
   .mw-card:hover .mw-cta { background: var(--ink); color: var(--paper); }
   .mw-cta .arr { transition: transform 0.2s; }
   .mw-card:hover .mw-cta .arr { transform: translateX(4px); }
@@ -1225,7 +1242,7 @@ h1, h2, h3, h4, h5 {
     display: flex; gap: 16px; align-items: flex-start;
   }
   .end-note .en-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); margin-top: 8px; flex: 0 0 auto; }
-  .end-note p { margin: 0; font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; max-width: 70ch; }
+  .end-note p { margin: 0; font-size: 14.5px; color: var(--ink-soft); line-height: 1.55;}
   .end-note p strong { color: var(--ink); font-weight: 500; }
 </style>
 </head>
@@ -1251,24 +1268,24 @@ h1, h2, h3, h4, h5 {
       <span class="cs-eye">Case study · 02 / 04</span>
       <span class="wip-chip reveal"><span class="dot"></span>Work in progress · Research complete</span>
     </div>
-    <h1 class="reveal">A booking experience for <em style="color: rgb(188, 251, 154)">Skyline</em>, a fictional airline.</h1>
+    <h1 class="reveal" style="font-size: 107px">A <em style="color: rgb(188, 251, 154)">booking experience</em> for Skyline, a fictional airline.</h1>
 
     <div class="cs-meta reveal" style="--reveal-delay: 0.1s;">
       <div>
         <span class="m-k">Role</span>
-        <span class="m-v">End-to-end UX (solo)</span>
+        <span class="m-v" style="font-size: 15px">End-to-end UX/UI  (solo)</span>
       </div>
       <div>
         <span class="m-k">Brief</span>
-        <span class="m-v">UX Design Institute — capstone</span>
+        <span class="m-v" style="font-size: 15px">UX Design Institute — capstone</span>
       </div>
       <div>
         <span class="m-k">Stage</span>
-        <span class="m-v">Research &amp; discovery</span>
+        <span class="m-v" style="font-size: 15px">Research &amp; discovery</span>
       </div>
       <div>
         <span class="m-k">Year</span>
-        <span class="m-v">2026 — ongoing</span>
+        <span class="m-v" style="font-size: 15px">2026 — ongoing</span>
       </div>
     </div>
   </div>
@@ -1279,7 +1296,7 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">01 — Project overview</span>
     <div>
-      <h2>Designing a <em>booking</em> experience for a fictional airline.</h2>
+      <h2>Designing a booking experience for a fictional airline.</h2>
       <p>The aim of this project was to design a website for <strong>Skyline</strong>, a fictional airline start-up. The brief specified that the online experience should be fast, easy, and intuitive — based on a deep understanding of the target users.</p>
       <p>The end goal was to design and build a <strong>clickable prototype</strong> that can be tested with users, alongside a detailed set of wireframes that can be handed over to UI designers and then developers.</p>
       <p>Everything in this case study has been completed by me. I am responsible for all research and UX design; the focus is on usability of the product. In a real-world scenario, this project would be passed over to UI designers and then developers.</p>
@@ -1292,7 +1309,7 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">02 — Problem</span>
     <div>
-      <h2>The flow works — until users hit the <em>decision</em> points.</h2>
+      <h2>The flow works — until users hit the decision points.</h2>
       <p>While the overall booking flow is perceived as relatively simple, users encounter friction and confusion at key decision points — particularly around <strong>fare selection, pricing clarity, and add-ons</strong>.</p>
       <p>The experience often requires extra cognitive effort to understand what is included, what is optional, and what the total cost actually is — which leads to hesitation, misinterpretation, or missed actions.</p>
     </div>
@@ -1304,18 +1321,18 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">03 — User Interviews</span>
     <div>
-      <h2>Six <em>usability</em> sessions in total, coded end-to-end.</h2>
+      <h2>Six usability sessions in total, coded end-to-end.</h2>
       <p>I ran and analysed <strong>two moderated usability tests</strong> with participants booking a real trip against their own criteria, using an existing flight-search product as the baseline. Each session was screen-recorded with think-aloud narration, then coded for friction points and behavioural patterns.</p>
       <p>I was also provided with <strong>four additional usability test recordings</strong> — two users each running through two separate booking websites — which I analysed and coded using the same note-taking framework. The findings below triangulate across all six sessions.</p>
 
       <div class="video-grid">
         <div class="video-card">
           <div class="video-wrap"><iframe src="https://player.vimeo.com/video/1185224592?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Usability Test Pt.1"></iframe></div>
-          <div class="vc-cap"><strong>Usability Test — Part 1</strong><span>Moderated · Own session</span></div>
+          <div class="vc-cap"><strong style="font-size: 17px">Usability Test — Part 1</strong><span>Moderated · Own session</span></div>
         </div>
         <div class="video-card">
           <div class="video-wrap"><iframe src="https://player.vimeo.com/video/1185224661?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Usability Test Pt.2"></iframe></div>
-          <div class="vc-cap"><strong>Usability Test — Part 2</strong><span>Moderated · Own session</span></div>
+          <div class="vc-cap"><strong style="font-size: 17px">Usability Test — Part 2</strong><span>Moderated · Own session</span></div>
         </div>
       </div>
 
@@ -1332,7 +1349,7 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">04 — Research · Synthesis</span>
     <div>
-      <h2>Clustering the <em>noise</em> into patterns.</h2>
+      <h2>Clustering the noise into patterns.</h2>
       <p>I built an affinity diagram from the raw observations — every quote, hesitation and error became a note — then used the clusters to map a customer journey that tracked emotion, thought and action across the full booking flow. Both boards live in Miro.</p>
 
       <div class="research-grid">
@@ -1349,7 +1366,7 @@ h1, h2, h3, h4, h5 {
           <div class="rt-caption">
             <div>
               <span class="lbl" style="color: rgb(58, 142, 255)">Affinity diagram</span>
-              <strong>Clustering observations into <em>themes</em></strong>
+              <strong style="font-size: 22px">Clustering observations into themes</strong>
             </div>
             <span class="rt-go">Open in Miro →</span>
           </div>
@@ -1368,7 +1385,7 @@ h1, h2, h3, h4, h5 {
           <div class="rt-caption">
             <div>
               <span class="lbl" style="color: rgb(58, 142, 255)">Customer journey map</span>
-              <strong>Tracking emotion across the <em>flow</em></strong>
+              <strong style="font-size: 22px">Tracking emotion across the flow</strong>
             </div>
             <span class="rt-go">Open in Miro →</span>
           </div>
@@ -1383,63 +1400,63 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">05 — Key findings</span>
     <div>
-      <h2>Six patterns surfaced across the <em>usability</em> sessions.</h2>
+      <h2>Six patterns surfaced across the usability sessions.</h2>
       <p>Key observations triangulated across both usability tests and the affinity diagram. Each is paired with the impact on user behaviour.</p>
 
       <div class="finding-list">
         <div class="finding-item">
           <span class="fi-num">F · 01</span>
           <div class="fi-body">
-            <h4>Fare selection is the biggest source of <em>confusion</em>.</h4>
-            <p>Users struggle to understand fare names and what each option includes. Naming (e.g. “Essentials”) does not match user expectations, and important details like baggage allowance are not immediately clear.<br><strong>Impact — </strong>users are unsure which option best fits their needs and may choose incorrectly or spend extra time comparing.</p>
+            <h4>Fare selection is the biggest source of confusion.</h4>
+            <p style="font-size: 15px">Users struggle to understand fare names and what each option includes. Naming (e.g. “Essentials”) does not match user expectations, and important details like baggage allowance are not immediately clear.<br><strong>Impact — </strong>users are unsure which option best fits their needs and may choose incorrectly or spend extra time comparing.</p>
           </div>
-          <span class="fi-tag">High severity</span>
+          <span class="fi-tag sev-high">High severity</span>
         </div>
         <div class="finding-item">
           <span class="fi-num">F · 02</span>
           <div class="fi-body">
-            <h4>Pricing lacks <em>transparency</em> across the journey.</h4>
-            <p>Users are unclear whether prices are total or duplicated (e.g. outbound vs return). Add-ons like insurance or seats aren't always clearly reflected in the total, and there's no pricing guidance on things like the seat map legend.<br><strong>Impact — </strong>users feel less confident in the final price and may double-check or hesitate before proceeding.</p>
+            <h4>Pricing lacks transparency across the journey.</h4>
+            <p style="font-size: 15px">Users are unclear whether prices are total or duplicated (e.g. outbound vs return). Add-ons like insurance or seats aren't always clearly reflected in the total, and there's no pricing guidance on things like the seat map legend.<br><strong>Impact — </strong>users feel less confident in the final price and may double-check or hesitate before proceeding.</p>
           </div>
-          <span class="fi-tag">High severity</span>
+          <span class="fi-tag sev-high">High severity</span>
         </div>
         <div class="finding-item">
           <span class="fi-num">F · 03</span>
           <div class="fi-body">
-            <h4>Add-ons and extras create <em>cognitive overload</em>.</h4>
-            <p>Users often skip extras (insurance, car rental) unless clearly relevant. Some add extras only in specific contexts — longer trips, family needs — and upsell banners are frequently ignored or misunderstood.<br><strong>Impact — </strong>opportunities for upsell are missed, and users may overlook relevant options.</p>
+            <h4>Interface clarity issues lead to missed actions.</h4>
+            <p style="font-size: 15px">Subtle UI elements (faint checkboxes, small pop-ups) are overlooked. Users miss key actions like selecting seats or declining add-ons, and some labels are unclear (e.g. “As shown on document”).<br><strong>Impact — </strong>users make errors, skip steps unintentionally, or feel uncertain about their selections.</p>
           </div>
-          <span class="fi-tag">Medium severity</span>
+          <span class="fi-tag sev-high">High severity</span>
         </div>
         <div class="finding-item">
           <span class="fi-num">F · 04</span>
           <div class="fi-body">
-            <h4>Interface clarity issues lead to <em>missed</em> actions.</h4>
-            <p>Subtle UI elements (faint checkboxes, small pop-ups) are overlooked. Users miss key actions like selecting seats or declining add-ons, and some labels are unclear (e.g. “As shown on document”).<br><strong>Impact — </strong>users make errors, skip steps unintentionally, or feel uncertain about their selections.</p>
+            <h4>Add-ons and extras create cognitive overload.</h4>
+            <p style="font-size: 15px">Users often skip extras (insurance, car rental) unless clearly relevant. Some add extras only in specific contexts — longer trips, family needs — and upsell banners are frequently ignored or misunderstood.<br><strong>Impact — </strong>opportunities for upsell are missed, and users may overlook relevant options.</p>
           </div>
-          <span class="fi-tag">High severity</span>
+          <span class="fi-tag sev-med">Medium severity</span>
         </div>
         <div class="finding-item">
           <span class="fi-num">F · 05</span>
           <div class="fi-body">
-            <h4>Strong expectations around <em>checkout</em> and automation.</h4>
-            <p>Users expect a clear, final breakdown of flights and extras at checkout, autofill for details like payee info and country code, and transparency in discounts, memberships and payment options.<br><strong>Impact — </strong>when these expectations aren't met, trust and perceived usability decrease.</p>
+            <h4>Strong expectations around checkout and automation.</h4>
+            <p style="font-size: 15px">Users expect a clear, final breakdown of flights and extras at checkout, autofill for details like payee info and country code, and transparency in discounts, memberships and payment options.<br><strong>Impact — </strong>when these expectations aren't met, trust and perceived usability decrease.</p>
           </div>
-          <span class="fi-tag">Medium severity</span>
+          <span class="fi-tag sev-med">Medium severity</span>
         </div>
         <div class="finding-item">
           <span class="fi-num">F · 06</span>
           <div class="fi-body">
-            <h4>Flight selection <em>works well</em>.</h4>
-            <p>Users find the flight selection layout clear and easy to compare. Side-by-side pricing and summary cards are effective, and the process feels straightforward up to this point.<br><strong>Impact — </strong>this is a strong part of the experience and sets a good foundation to build from.</p>
+            <h4>Flight selection works well.</h4>
+            <p style="font-size: 15px">Users find the flight selection layout clear and easy to compare. Side-by-side pricing and summary cards are effective, and the process feels straightforward up to this point.<br><strong>Impact — </strong>this is a strong part of the experience and sets a good foundation to build from.</p>
           </div>
-          <span class="fi-tag">Positive signal</span>
+          <span class="fi-tag sev-pos">Positive signal</span>
         </div>
       </div>
 
       <div class="outcome-band" style="margin-top: 64px; background-color: rgb(229, 252, 213)">
-        <h3>The booking journey is functionally effective but <em>cognitively</em> demanding.</h3>
-        <p>Clarity — especially around fares, pricing and add-ons — is the main usability gap. Improving information hierarchy, naming and visual feedback would significantly reduce confusion and increase user confidence throughout the journey.</p>
+        <h3 style="font-size: 40px">The booking journey is functionally effective but cognitively demanding.</h3>
+        <p style="font-size: 17px">Clarity — especially around fares, pricing and add-ons — is the main usability gap. Improving information hierarchy, naming and visual feedback would significantly reduce confusion and increase user confidence throughout the journey.</p>
       </div>
     </div>
   </div>
@@ -1450,28 +1467,28 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">06 — Design goals</span>
     <div>
-      <h2>From findings to <em>how-might-wes.</em></h2>
+      <h2>From findings to how-might-wes.</h2>
       <p>The findings resolved into four design goals that the app will be judged against:</p>
 
       <div class="hmw-grid">
         <div class="hmw">
           <span class="hmw-n">HMW · 01</span>
-          <h4>How might we make <em>fare differences</em> obvious at a glance?</h4>
+          <h4 style="font-size: 22px">How might we make fare differences obvious at a glance?</h4>
           <p>Replace abstract fare names with clear inclusion summaries, surface baggage and flexibility on the card itself, and make comparison between fares feel direct.</p>
         </div>
         <div class="hmw">
           <span class="hmw-n">HMW · 02</span>
-          <h4>How might we make pricing feel <em>trustworthy</em> end-to-end?</h4>
+          <h4 style="font-size: 22px">How might we make pricing feel trustworthy end-to-end?</h4>
           <p>Show one total that updates transparently as extras are added or removed. Clarify per-passenger vs trip total, and give price context for seat tiers and add-ons.</p>
         </div>
         <div class="hmw">
           <span class="hmw-n">HMW · 03</span>
-          <h4>How might we make add-ons <em>relevant</em>, not noisy?</h4>
+          <h4 style="font-size: 22px">How might we make add-ons relevant, not noisy?</h4>
           <p>Time and frame extras around user context — longer trips, family bookings, business travel — so the right prompts surface at the right moment, and the rest get out of the way.</p>
         </div>
         <div class="hmw">
           <span class="hmw-n">HMW · 04</span>
-          <h4>How might we make <em>key actions</em> impossible to miss?</h4>
+          <h4 style="font-size: 22px">How might we make key actions impossible to miss?</h4>
           <p>Strengthen the visual hierarchy of critical controls (seat selection, opt-outs), rewrite ambiguous labels, and confirm choices with clear feedback before moving on.</p>
         </div>
       </div>
@@ -1484,7 +1501,7 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">07 — Wireframes</span>
     <div>
-      <h2>Low-fidelity flows, <em>coming soon.</em></h2>
+      <h2>Low-fidelity flows, coming soon.</h2>
       <p>Wireframes are in progress — working through the search → results → comparison → checkout flow against the four HMW goals. First iteration will be posted here once tested.</p>
 
       <div class="wf-stage">
@@ -1509,7 +1526,7 @@ h1, h2, h3, h4, h5 {
   <div class="container cs-twocol reveal">
     <span class="num">08 — Final designs</span>
     <div>
-      <h2>Hi-fi screens will <em>land here.</em></h2>
+      <h2>Hi-fi screens will land here.</h2>
       <p>Once the wireframes are validated, I'll design the full hi-fi UI — colour, type, motion — and document the key interactions (flexibility explorer, layover preview, shortlist drawer, transparent checkout).</p>
 
       <div class="wf-stage">
@@ -1520,16 +1537,23 @@ h1, h2, h3, h4, h5 {
         </div>
         <div class="wf-copy">
           <span class="wf-lbl">Planned</span>
-          <h3>Hi-fi UI &amp; <em>prototype</em> to follow.</h3>
+          <h3>Hi-fi UI &amp; prototype to follow.</h3>
           <p>Interactive Figma prototype with the four flagship interactions, plus a small motion pass for the trade-off explorer and the layover preview.</p>
           <span class="wf-status"><span class="dot"></span>Up next</span>
         </div>
       </div>
 
-      <div class="outcome-band" style="background-color: rgb(229, 252, 213)">
-        <h3>This case study will <em>grow</em> as the project does.</h3>
-        <p>I'm publishing research now so it can speak for itself, and adding wireframes and final designs as they're ready. Check back or drop me a line if you'd like to see work-in-progress screens.</p>
-      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 Next Steps -->
+<section class="cs-section">
+  <div class="container cs-twocol reveal">
+    <span class="num">09 — Next steps</span>
+    <div>
+      <h2>This case study will grow as the project does.</h2>
+      <p>I'm publishing research now so it can speak for itself, and adding wireframes and final designs as they're ready. Check back or drop me a line if you'd like to see work-in-progress screens.</p>
 
       <div class="end-note">
         <span class="en-dot"></span>
@@ -1543,19 +1567,19 @@ h1, h2, h3, h4, h5 {
 <section class="container more-work reveal">
   <div class="mw-head">
     <span class="mw-eyebrow">More work</span>
-    <h2 class="mw-title">Keep <em>exploring.</em></h2>
+    <h2 class="mw-title">Keep exploring.</h2>
   </div>
   <div class="mw-grid">
-    <a class="mw-card mw-navy" href="unbolt-case-study.html">
+    <a class="mw-card mw-plum" href="aviva-brief.html">
       <div class="mw-visual">
-        <span class="mw-mark">Unbolt<em>.</em></span>
+        <span class="mw-mark">Aviva.</span>
       </div>
       <div class="mw-body">
-        <span class="mw-tag">Case study</span>
-        <h3 class="mw-h3">An AR repair companion for DIY mechanics.</h3>
+        <span class="mw-tag" style="font-size: 12px">Audit</span>
+        <h3 class="mw-h3">A UX audit of Aviva's careers benefits page.</h3>
         <dl class="mw-meta">
-          <div><dt>Role</dt><dd>Product designer</dd></div>
-          <div><dt>Sector</dt><dd>Consumer · AR</dd></div>
+          <div><dt>Role</dt><dd>UX audit</dd></div>
+          <div><dt>Sector</dt><dd>Insurance · Careers</dd></div>
           <div><dt>Year</dt><dd>2024</dd></div>
         </dl>
         <span class="mw-cta">Read case study <span class="arr">→</span></span>
@@ -1563,15 +1587,15 @@ h1, h2, h3, h4, h5 {
     </a>
 
     <a class="mw-card mw-forest" href="planty-case-study.html">
-      <div class="mw-visual">
-        <span class="mw-mark">Planty<em>.</em></span>
+      <div class="mw-visual" style="background-color: rgb(188, 251, 154)">
+        <span class="mw-mark">Planty.</span>
       </div>
       <div class="mw-body">
-        <span class="mw-tag">Case study</span>
+        <span class="mw-tag" style="font-size: 12px">Case study</span>
         <h3 class="mw-h3">Rebranding a subscription service for growth.</h3>
         <dl class="mw-meta">
-          <div><dt>Role</dt><dd>Product &amp; Marketing</dd></div>
-          <div><dt>Sector</dt><dd>E-commerce</dd></div>
+          <div><dt>Role</dt><dd>Product &amp; Marketing Manager</dd></div>
+          <div><dt>Sector</dt><dd>E-commerce · Subscription</dd></div>
           <div><dt>Year</dt><dd>2022 — 2023</dd></div>
         </dl>
         <span class="mw-cta">Read case study <span class="arr">→</span></span>
@@ -1637,6 +1661,42 @@ h1, h2, h3, h4, h5 {
 .mw-card[href*="planty"] .mw-visual { background: #bcfb9a !important; color: var(--ink) !important; }
 .mw-card[href*="flight"] .mw-visual { background: #3a8eff !important; color: #fff !important; }
 .mw-card[href*="aviva"]  .mw-visual { background: #ff5236 !important; color: #fff !important; }
+
+/* Normalized 22px italics → Cabinet Grotesk italic */
+.logos .logo-item em,
+.focus h4 em {
+  font-family: 'Cabinet Grotesk', 'Inter Tight', system-ui, sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+}
+
+/* === Unified 22px text style — single source of truth === */
+[style*="font-size: 22px"],
+[style*="font-size:22px"],
+.ts-22 {
+  font-weight: 800 !important;
+}
+[style*="font-size: 22px"] em,
+[style*="font-size:22px"] em,
+.ts-22 em {
+  font-family: 'Cabinet Grotesk', 'Inter Tight', sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+}
+
+/* === Unified 28px text style — single source of truth === */
+[style*="font-size: 28px"],
+[style*="font-size:28px"],
+.ts-28 {
+  font-weight: 800 !important;
+}
+[style*="font-size: 28px"] em,
+[style*="font-size:28px"] em,
+.ts-28 em {
+  font-family: 'Cabinet Grotesk', 'Inter Tight', sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+}
 </style>
 </body>
 </html>
